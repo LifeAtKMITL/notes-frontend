@@ -1,9 +1,11 @@
+$maincolor: #172A6C;
+
 .nav-container{
-    background-color: #2a3458;
+    background-color: $maincolor;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 10vh;
+    height: 60px;
     padding: 0 10px 0 10px;
 }
 
@@ -15,15 +17,15 @@
 .nav-profile{
     border-radius: 50%;
     background-color: rgb(0, 0, 0);
-    width: 10vw;
-    height: 10vw;
+    width: 40px;
+    height: 40px;
     cursor: pointer;
 }
 
 .nav-logo{
-    height: 100%;
-    width: 12vh;
-    scale: 1.4;
+    height: 90px;
+    width: 106px;
+    scale: 1;
 }
 
 .nav-menu{
