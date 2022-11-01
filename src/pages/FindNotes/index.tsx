@@ -20,25 +20,27 @@ interface INote {
 
 const FindNotesPage = () => {
   return (
-    <div>
-      <div className='notes-search'>
+    <div className='findNote'>
+      <div className='title'>
         <img src={brand} />
         <h2>Find Note</h2>
-        <div>
-          <span>Sharing your notes ? </span>
-          <a href='#'>click here</a>
-        </div>
-        <div>
-          <input type='text' />
-          <br />
-          <button>nann</button>
-          <button>nani</button>
-        </div>
-        <div className='sorted'>
-          <p>sort</p>
-          <TbArrowsSort />
-        </div>
+        <p>
+          Sharing your notes? <a href='#'>click here</a>
+        </p>
       </div>
+      <div className='search'>
+        <input type='text' />
+        <button>nann</button>
+        <button>nani</button>
+      </div>
+
+      <div className='sorter'>
+        <button>
+          sort
+          <TbArrowsSort className='icon' />
+        </button>
+      </div>
+
       <div className='notes-container'>
         <NoteCard
           subjectName='Software Architecture'
