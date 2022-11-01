@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './index.scss';
-import logo from 'assets/images/secret.jpg';
+import logo from 'assets/images/logo.png';
 import { FiMenu } from 'react-icons/fi';
 import { MdClose } from 'react-icons/md';
 import { Link } from 'react-router-dom';
