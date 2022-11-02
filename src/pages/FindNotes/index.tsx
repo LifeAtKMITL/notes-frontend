@@ -3,6 +3,9 @@ import React from 'react';
 import brand from 'assets/images/brand.png';
 import 'pages/FindNotes/index.scss';
 import { TbArrowsSort } from 'react-icons/tb';
+import { IoMdArrowDropdown } from 'react-icons/io';
+import { IoSearchOutline } from 'react-icons/io5';
+
 import temp from 'assets/test-resource/temp2.jpeg';
 import temp2 from 'assets/test-resource/secret.jpg';
 
@@ -29,15 +32,26 @@ const FindNotesPage = () => {
         </p>
       </div>
       <div className='search'>
-        <input type='text' />
-        <button>nann</button>
-        <button>nani</button>
+        <div className='search-box'>
+          <input type='text' />
+          <button>
+            <IoSearchOutline size={15} />
+          </button>
+        </div>
+        <button>
+          <h3>Exam</h3>
+          <IoMdArrowDropdown size={20} className='icon' />
+        </button>
+        <button>
+          <h3>Year</h3>
+          <IoMdArrowDropdown size={20} className='icon' />
+        </button>
       </div>
 
       <div className='sorter'>
         <button>
-          sort
-          <TbArrowsSort className='icon' />
+          <h3>sort</h3>
+          <TbArrowsSort className='icon' size={15} />
         </button>
       </div>
 
