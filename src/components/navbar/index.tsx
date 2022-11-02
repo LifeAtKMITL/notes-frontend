@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import './index.scss';
+import 'components/navbar/index.scss';
 import logo from 'assets/images/logo.png';
 import { FiMenu } from 'react-icons/fi';
 import { MdClose } from 'react-icons/md';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const NavMenu = () => {
   return (
@@ -22,24 +22,27 @@ const NavMenu = () => {
 };
 
 const Navbar = () => {
-  const [isClick, setClike] = useState<Boolean>(true);
+  const [clickMenu, setClike] = useState<Boolean>(true);
+
   const handleClick = () => {
-    setClike(!isClick);
-    // console.log(isClick);
+    setClike(!clickMenu);
+    // console.log(clickMenu);
   };
+
+  const navigate = useNavigate();
 
   return (
     <div>
       <div className='nav-container'>
-        {isClick ? (
+        {clickMenu ? (
           <FiMenu size={30} className='nav-element' onClick={handleClick} />
         ) : (
           <MdClose size={30} onClick={handleClick} className='nav-element' />
         )}
         <img src={logo} className='nav-logo' />
-        <img src={logo} className='nav-profile' />
+        <img src={logo} className='nav-profile' onClick={() => navigate('/profile')} />
       </div>
-      {!isClick && <NavMenu />}
+      {!clickMenu && <NavMenu />}
     </div>
   );
 };

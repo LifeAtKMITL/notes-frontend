@@ -1,0 +1,50 @@
+.card-container{
+    display: grid;
+    grid-template-columns: 4fr 4fr;
+    margin: 3px;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    cursor: pointer;
+    width: 340px;
+    
+    .pic-box{
+        height: 182px;
+        width: 153px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img{
+            border-radius: 10px;
+            width: 98%;
+            height: 98%;
+            object-fit: cover;
+        }
+    }
+
+    .info-box{
+        margin-top: 10px;
+        div{
+            display: flex;
+            margin-top: 6px;
+        }
+        h3{
+            margin-right: 10px;
+            font-size: 15px;
+        }
+        p{
+            font-size: 10px;
+        }
+        img{
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            margin: 0 5px 0 5px;
+            border: 1px solid black;
+        }
+        .icon{
+            margin-top: 0px;
+            margin-right: 5px;
+        }
+    }
+}

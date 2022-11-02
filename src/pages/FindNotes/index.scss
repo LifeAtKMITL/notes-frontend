@@ -1,0 +1,98 @@
+.findNote{
+    .title{
+        margin-top: 40px;
+        margin-bottom: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        p{
+            color: rgb(163, 150, 150);
+            a{
+                text-decoration: none;
+                color: rgb(255, 122, 5);
+            }
+        }
+        img{
+            height: 100px;
+            width: 100px;
+            border-radius: 50%;
+            margin-bottom: 14px;
+        }
+    }
+
+    .search{
+        margin: 0 64px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        row-gap: 20px;
+        column-gap: 13px;
+        justify-content: center;
+
+        .search-box{
+            grid-column: 1/3;
+            display: flex;
+            input{
+                width: 87%;
+                border: none;
+                background-color:  #efefefef;
+                border-radius: 5px 0 0 5px;
+                padding: 5px 0;
+            }
+            button{
+                display: grid;
+                place-items: center;
+                width: 13%;
+                border: none;
+                border-radius: 0 5px 5px 0;
+                background-color: #dbd9d9;
+            }
+        }
+
+        button{
+            position: relative;
+            display: flex;
+            justify-content: center;
+            border: none;
+            padding: 3px 0;
+            cursor: pointer;
+            border-radius: 5px;
+
+            .icon{
+                position: absolute;
+                margin-top: 2px;
+                right: 5px;
+            }
+        }
+    }
+    
+    
+    .sorter{    
+        margin: 20px 0 10px 0;
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 25px;
+        button{
+            display: flex;
+            border: none;
+            background-color: white;
+            cursor: pointer;
+
+            h3{
+                color: #7e7e7eef;
+            }
+            .icon{
+                margin-left: 2px;
+                margin-top: 5px;
+            }
+        }
+    }
+    
+    .notes-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+
+
