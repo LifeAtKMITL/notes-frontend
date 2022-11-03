@@ -9,7 +9,7 @@ import NoteCard from 'components/notecard';
 
 const ProfilePage = () => {
   return (
-    <div>
+    <div className='profile-page'>
       <div className='head'>
         <div className='img-contain'>
           <img src={temp} />
