@@ -41,7 +41,7 @@ $dropdown_color: rgb(250, 235, 215,0.9);
     border-radius: 5px;
     font-size: medium;
     font-weight: bold;
-
+    z-index: 1;
     
     &.inactive{
         opacity: 0;
