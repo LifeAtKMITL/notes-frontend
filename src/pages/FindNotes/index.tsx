@@ -10,6 +10,7 @@ import temp from 'assets/test-resource/temp2.jpeg';
 import temp2 from 'assets/test-resource/secret.jpg';
 import { useNavigate } from 'react-router-dom';
 import DropdownSelect from 'components/dropdown-select';
+import axios from 'axios';
 
 interface INote {
   subjectName: string;
@@ -25,6 +26,12 @@ interface INote {
 
 const FindNotesPage = () => {
   const navigate = useNavigate();
+
+  const loadMyNotes = async () => {
+    const path = 'https://life-at-kmitl-backend-production.up.railway.app/sharenote/';
+    const res = await axios.get(path);
+    console.log(res.data);
+  };
 
   return (
     <div className='findNote'>
