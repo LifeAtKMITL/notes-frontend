@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
+    padding-bottom: 50px;
     
     .title{
         text-align: center;
@@ -48,28 +49,24 @@
         }
     }
     
-    .dropdown-contain{
-        display: flex;
-        gap: 5px;
-        div{
-            background-color: #ececec;
-            height: 26px;
-            cursor: pointer;
-            border-radius: 5px;
-            width: 48%;
+    .exam-year{
+
+        .flex-row{
+            margin-top: 10px;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            
-            .icon{
-                position:absolute;
-                right: 5px;
+            justify-content: space-between;
+            .to-ddsl
+            {
+                width: 120px;
+                p{
+                    font: 16px;
+                    font-weight: 200;
+                }
             }
         }
     }
 
-    button{
+    .button-submit{
         background-color: rgb(242, 192, 128);
         font-weight:bold;
         font-size: 15px;

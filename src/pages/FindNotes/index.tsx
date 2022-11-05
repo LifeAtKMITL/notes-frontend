@@ -8,6 +8,8 @@ import { IoSearchOutline } from 'react-icons/io5';
 
 import temp from 'assets/test-resource/temp2.jpeg';
 import temp2 from 'assets/test-resource/secret.jpg';
+import { useNavigate } from 'react-router-dom';
+import DropdownSelect from 'components/dropdown-select';
 
 interface INote {
   subjectName: string;
@@ -22,30 +24,26 @@ interface INote {
 }
 
 const FindNotesPage = () => {
+  const navigate = useNavigate();
+
   return (
     <div className='findNote'>
       <div className='title'>
         <img src={brand} />
         <h2>Find Note</h2>
         <p>
-          Sharing your notes? <a href='#'>click here</a>
+          Sharing your notes? <a onClick={() => navigate('/share-notes')}>click here</a>
         </p>
       </div>
       <div className='search'>
         <div className='search-box'>
           <input type='text' />
-          <button>
+          <button className='button-search'>
             <IoSearchOutline size={15} />
           </button>
         </div>
-        <button>
-          <h3>Exam</h3>
-          <IoMdArrowDropdown size={20} className='icon' />
-        </button>
-        <button>
-          <h3>Year</h3>
-          <IoMdArrowDropdown size={20} className='icon' />
-        </button>
+        <DropdownSelect lst={['nani', 'anya', 'Yor', 'Loid', 'bond']} />
+        <DropdownSelect lst={['nani', 'anya', 'Yor', 'Loid', 'bond']} />
       </div>
 
       <div className='sorter'>
