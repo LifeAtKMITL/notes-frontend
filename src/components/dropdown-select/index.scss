@@ -27,7 +27,7 @@ $ddsl_color :#efefef;
     
     .ddsl-menu-container{
         width: 100%;
-        height: min(200px);
+        height: max(180px);
         background-color: $ddsl_color;
         overflow: auto;
     
@@ -48,6 +48,7 @@ $ddsl_color :#efefef;
         .ddsl-menu{
             cursor: pointer;
             width: 100%;
-            padding: 5px 0;
+            padding: 10px 0;
+            text-align: center;
         }
     }
