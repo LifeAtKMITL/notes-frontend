@@ -49,15 +49,19 @@
         }
     }
     
-    .flex-row{
-        display: flex;
-        justify-content: space-between;
-        .to-ddsl
-        {
-            width: 120px;
-            p{
-                font: 16px;
-                font-weight: 200;
+    .exam-year{
+
+        .flex-row{
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            .to-ddsl
+            {
+                width: 120px;
+                p{
+                    font: 16px;
+                    font-weight: 200;
+                }
             }
         }
     }
