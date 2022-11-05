@@ -6,10 +6,11 @@ interface IProps {
   lst: Array<string>;
   className?: string;
   iconSize?: number;
+  defaultVal?: string;
 }
 
-const DropdownSelect = ({ lst, className, iconSize = 20 }: IProps) => {
-  const [text, setText] = useState<string>('click me');
+const DropdownSelect = ({ lst, className, defaultVal = '-', iconSize = 20 }: IProps) => {
+  const [text, setText] = useState<string>(defaultVal);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleClickMenu = (ele: string) => {
