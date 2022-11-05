@@ -37,7 +37,7 @@ const FindNotesPage = () => {
       <div className='search'>
         <div className='search-box'>
           <input type='text' />
-          <button>
+          <button className='button-search'>
             <IoSearchOutline size={15} />
           </button>
         </div>
