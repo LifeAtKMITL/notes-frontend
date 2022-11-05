@@ -4,7 +4,7 @@ import './index.scss';
 
 interface IProps {
   lst: Array<string>;
-  className: string;
+  className?: string;
   iconSize?: number;
 }
 
