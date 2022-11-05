@@ -2,6 +2,7 @@ $ddsl_color :#efefef;
 
 .ddsl-container{
     width: fit-content;
+    position: relative;
 }
     .ddsl-button{
         position: relative;
@@ -28,8 +29,9 @@ $ddsl_color :#efefef;
     .ddsl-menu-container{
         width: 100%;
         height: max(180px);
-        background-color: $ddsl_color;
+        background-color: rgba(239, 239, 239,0.85);
         overflow: auto;
+        position: absolute;
     
         &.inactive{
             opacity: 0;
