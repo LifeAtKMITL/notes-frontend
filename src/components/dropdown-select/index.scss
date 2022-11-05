@@ -1,0 +1,53 @@
+$ddsl_color :#efefef;
+
+.ddsl-container{
+    width: fit-content;
+}
+    .ddsl-button{
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        padding: 3px 0;
+        cursor: pointer;
+        border-radius: 5px;
+        width: 125px;
+        font-size: 15.6px;
+        font-weight: bold;
+        background-color: $ddsl_color;
+        
+        .icon{
+            position: absolute;
+            margin-top: 2px;
+            right: 5px;
+        }
+    }
+    
+    
+    .ddsl-menu-container{
+        width: 100%;
+        height: min(200px);
+        background-color: $ddsl_color;
+        overflow: auto;
+    
+        &.inactive{
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: 100ms ease;
+        }
+        
+        &.active{
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(5px);
+            transition: 100ms ease;
+        }
+        
+        .ddsl-menu{
+            cursor: pointer;
+            width: 100%;
+            padding: 5px 0;
+        }
+    }
