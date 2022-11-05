@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import 'pages/ShareNotes/index.scss';
 import { IoMdArrowDropdown } from 'react-icons/io';
+import DropdownSelect from 'components/dropdown-select';
 
 const ShareNotesPage = () => {
   // type InForm = {
@@ -50,18 +51,10 @@ const ShareNotesPage = () => {
           <p>Teacher Name</p>
           <input type='text' />
         </div>
-        <div className='input-contain'>
-          <p>Exam / Year</p>
-          <div className='dropdown-contain'>
-            <div>
-              <label>--</label>
-              <IoMdArrowDropdown className='icon' />
-            </div>
-            <div>
-              <label>--</label>
-              <IoMdArrowDropdown className='icon' />
-            </div>
-          </div>
+        <p>Exam / Year</p>
+        <div className='flex-row'>
+          <DropdownSelect lst={['nani', 'anya', 'Yor', 'Loid', 'bond']} className='to-ddsl' iconSize={16} />
+          <DropdownSelect lst={['nani', 'anya', 'Yor', 'Loid', 'bond']} className='to-ddsl' iconSize={16} />
         </div>
         <div className='input-contain'>
           <p>Description</p>
@@ -72,7 +65,9 @@ const ShareNotesPage = () => {
           <input type='file' />
         </div>
         <div>
-          <button>Submit</button>
+          <button className='button-submit' type='submit'>
+            Submit
+          </button>
         </div>
       </form>
     </div>
