@@ -54,8 +54,13 @@ const ShareNotesPage = () => {
         <div className='exam-year'>
           <p>Exam / Year</p>
           <div className='flex-row'>
-            <DropdownSelect lst={['nani', 'anya', 'Yor', 'Loid', 'bond']} className='to-ddsl' iconSize={16} />
-            <DropdownSelect lst={['nani', 'anya', 'Yor', 'Loid', 'bond']} className='to-ddsl' iconSize={16} />
+            <DropdownSelect className='to-ddsl' iconSize={16} lst={['Midterm', 'Final']} defaultVal='Exam' />
+            <DropdownSelect
+              className='to-ddsl'
+              iconSize={16}
+              lst={Array.from({ length: 10 }, (v, k) => (2023 - (k + 1)).toString())}
+              defaultVal='Year'
+            />
           </div>
         </div>
         <div className='input-contain'>

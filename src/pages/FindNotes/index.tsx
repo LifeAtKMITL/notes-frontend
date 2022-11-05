@@ -42,8 +42,8 @@ const FindNotesPage = () => {
             <IoSearchOutline size={15} />
           </button>
         </div>
-        <DropdownSelect lst={['nani', 'anya', 'Yor', 'Loid', 'bond']} />
-        <DropdownSelect lst={['nani', 'anya', 'Yor', 'Loid', 'bond']} />
+        <DropdownSelect lst={['Midterm', 'Final']} defaultVal='Exam' />
+        <DropdownSelect lst={Array.from({ length: 10 }, (v, k) => (2023 - (k + 1)).toString())} defaultVal='Year' />
       </div>
 
       <div className='sorter'>
