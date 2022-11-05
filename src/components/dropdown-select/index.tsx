@@ -19,7 +19,12 @@ const DropdownSelect = ({ lst, className, iconSize = 20 }: IProps) => {
 
   return (
     <div className='ddsl-container'>
-      <button className={`ddsl-button ${className}`} name='ddsl-button' onClick={() => setIsOpen(!isOpen)}>
+      <button
+        className={`ddsl-button ${className}`}
+        type='button'
+        name='ddsl-button'
+        onClick={() => setIsOpen(!isOpen)}
+      >
         <p>{text}</p>
         <IoMdArrowDropdown size={iconSize} className='icon' />
       </button>
