@@ -9,6 +9,7 @@ import { IoSearchOutline } from 'react-icons/io5';
 import temp from 'assets/test-resource/temp2.jpeg';
 import temp2 from 'assets/test-resource/secret.jpg';
 import { useNavigate } from 'react-router-dom';
+import DropdownSelect from 'components/dropdown-select';
 
 interface INote {
   subjectName: string;
@@ -41,14 +42,8 @@ const FindNotesPage = () => {
             <IoSearchOutline size={15} />
           </button>
         </div>
-        <button>
-          <h3>Exam</h3>
-          <IoMdArrowDropdown size={20} className='icon' />
-        </button>
-        <button>
-          <h3>Year</h3>
-          <IoMdArrowDropdown size={20} className='icon' />
-        </button>
+        <DropdownSelect lst={['nani', 'anya', 'Yor', 'Loid', 'bond']} />
+        <DropdownSelect lst={['nani', 'anya', 'Yor', 'Loid', 'bond']} />
       </div>
 
       <div className='sorter'>
