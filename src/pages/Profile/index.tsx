@@ -8,7 +8,7 @@ import { HiOutlineDownload } from 'react-icons/hi';
 import NoteCard from 'components/notecard';
 import axios from 'axios';
 
-interface IShowNote {
+interface INote {
   subjectName: string;
   examination: string;
   academicYear: string;
@@ -17,7 +17,7 @@ interface IShowNote {
   userPic: string;
   notePic: string;
   noteLike: number;
-  noteDownload: number;
+  noteView: number;
 }
 
 const ProfilePage = () => {
@@ -67,7 +67,7 @@ const ProfilePage = () => {
           userPic={temp}
           notePic={temp2}
           noteLike={53}
-          noteDownload={71}
+          noteView={71}
         />
         <NoteCard
           subjectName='Software Architecture'
@@ -78,7 +78,7 @@ const ProfilePage = () => {
           userPic={temp}
           notePic={temp2}
           noteLike={53}
-          noteDownload={71}
+          noteView={71}
         />
       </div>
     </div>
