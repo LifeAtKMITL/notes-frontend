@@ -14,6 +14,8 @@ const Navbar = () => {
 
   const navigate = useNavigate();
 
+  const userImage = logo;
+
   useEffect(() => {
     let handler = (e: MouseEvent) => {
       if (e.target) {
@@ -35,7 +37,7 @@ const Navbar = () => {
         )}
 
         <img src={logo} className='nav-logo' />
-        <img src={logo} className='nav-profile' onClick={() => navigate('/profile')} />
+        <img src={userImage} className='nav-profile' onClick={() => navigate('/profile')} />
       </div>
 
       {/* NavMenu */}
