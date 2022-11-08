@@ -58,7 +58,7 @@ const ShareNotesPage = () => {
             <DropdownSelect
               className='to-ddsl'
               iconSize={16}
-              lst={Array.from({ length: 10 }, (v, k) => (2023 - (k + 1)).toString())}
+              lst={Array.from({ length: 10 }, (v, k) => (new Date().getFullYear() - k).toString())}
               defaultVal='Year'
             />
           </div>
