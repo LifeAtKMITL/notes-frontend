@@ -12,7 +12,7 @@ interface INote {
   userPic: string;
   notePic: string;
   noteLike: number;
-  noteDownload: number;
+  noteView: number;
 }
 
 const NoteCard: React.FC<INote> = ({
@@ -24,7 +24,7 @@ const NoteCard: React.FC<INote> = ({
   userPic,
   notePic,
   noteLike,
-  noteDownload,
+  noteView,
 }) => {
   return (
     <div className='card-container'>
@@ -51,7 +51,7 @@ const NoteCard: React.FC<INote> = ({
         </div>
         <div>
           <HiOutlineDownload size={15} className='icon' />
-          <p> ({noteDownload})</p>
+          <p> ({noteView})</p>
         </div>
       </div>
     </div>
