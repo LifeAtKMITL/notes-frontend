@@ -42,7 +42,7 @@ const ProfilePage = () => {
   //tempUserId
   const [myInfo, setMyInfo] = useState<Iinfo>({
     userName: 'Yor Forger',
-    userImage: '',
+    userImage: temp,
     allLikes: 1,
     allNotes: 2,
     allViews: 3,

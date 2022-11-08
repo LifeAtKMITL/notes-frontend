@@ -2,7 +2,7 @@
 {
     .head{
         display: grid;
-        grid-template-columns: 3fr 4fr;
+        grid-template-columns: 1fr 1fr;
         margin-top: 20px;
         height: 160px;
         .img-contain{
@@ -26,7 +26,7 @@
                 margin-left: 3px;
                 display: flex;
                 justify-content: space-between;
-                width: 140px;
+                width: 130px;
                 div{
                     p{
                         font-size: 14px;
