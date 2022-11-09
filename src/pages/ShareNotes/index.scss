@@ -1,81 +1,109 @@
-.form-sharing{
-    margin: 35px 71px 0 71px;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    padding-bottom: 50px;
-    
-    .title{
-        text-align: center;
-    }
-    
-    .input-contain{
-        p{
-            margin-bottom: 10px;
-        }
-        input{
-            margin-left: 2px;
-            width: 98%;
-            border: rgb(220, 219, 219) 1px solid;
-            box-shadow: 1px 1px 2px #888888;
-            border-radius: 5px;
-            padding: 5px 0;
-            padding-left: 10px;
-            background-color: rgb(220, 220, 220);
-            background-color: white;
-        }
-        textarea{
-            border: rgb(220, 219, 219) 1px solid;
-            box-sizing: border-box;
-            display: block;
-            border-radius: 5px;
-            box-shadow: 1px 1px 2px #888888;
-            height: 300px;
-            width: 100%;
-            padding: 10px;
-            resize: none;
-        }
-    }
+.sharenote-page{
 
-    .file-contain{
-        input{
-            background-color: #ececec;
-            padding: 5px 0;
-            padding-left: 15px;
-            border-radius: 5px;
-        }
-        p{
-            margin-bottom: 10px;
-        }
-    }
     
-    .exam-year{
+    .form{
+        margin: 35px 71px 0 71px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        padding-bottom: 50px;
+        
+        .title{
+            text-align: center;
+        }
+        
+        .contain1{
 
-        .flex-row{
-            margin-top: 10px;
-            display: flex;
-            justify-content: space-between;
-            .to-ddsl
-            {
-                width: 120px;
-                p{
-                    font: 16px;
-                    font-weight: 200;
+            position: relative;
+
+            p{
+                margin-bottom: 10px;
+            }
+
+            input{
+                margin-left: 2px;
+                width: 98%;
+                border: rgb(220, 219, 219) 1px solid;
+                box-shadow: 1px 1px 2px #888888;
+                border-radius: 5px;
+                padding: 5px 0;
+                padding-left: 10px;
+                background-color: rgb(220, 220, 220);
+                background-color: white;
+            }
+
+            textarea{
+                border: rgb(220, 219, 219) 1px solid;
+                box-sizing: border-box;
+                display: block;
+                border-radius: 5px;
+                box-shadow: 1px 1px 2px #888888;
+                height: 300px;
+                width: 100%;
+                padding: 10px;
+                resize: none;
+            }
+
+            .box{
+                background-color: rgb(230, 161, 161);
+                max-height: 120px;
+                overflow: auto;
+                border-radius: 0 0 5px 5px;
+                width: 242px;
+                position: absolute;
+                top:100%;
+                left: 50%;
+                transform: translateX(-50%);
+                margin-top: 2px;
+                z-index: 1;
+
+                .subject-menu{
+                    cursor: pointer;
+                    padding: 5px 0;
                 }
             }
         }
-    }
-
-    .button-submit{
-        background-color: rgb(242, 192, 128);
-        font-weight:bold;
-        font-size: 15px;
-        height: 26px;
-        border: 0;
-        border-radius: 5px;
-        width: 48%;
-        display: grid;
-        place-items: center;
-    }
+        
+        .file-contain{
+            input{
+                background-color: #ececec;
+                padding: 5px 0;
+                padding-left: 15px;
+                border-radius: 5px;
+            }
+            p{
+                margin-bottom: 10px;
+            }
+        }
+        
+        .exam-year{
+            
+            .flex-row{
+                margin-top: 10px;
+                display: flex;
+                justify-content: space-between;
+                .to-ddsl
+                {
+                    width: 120px;
+                    p{
+                        font: 16px;
+                        font-weight: 200;
+                    }
+                }
+            }
+        }
+        
+        .button-submit{
+            background-color: rgb(242, 192, 128);
+            font-weight:bold;
+            font-size: 15px;
+            height: 26px;
+            border: 0;
+            border-radius: 5px;
+            width: 48%;
+            display: grid;
+            place-items: center;
+        }
     
+        }
 }
