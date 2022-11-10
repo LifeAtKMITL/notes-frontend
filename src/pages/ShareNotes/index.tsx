@@ -1,43 +1,163 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import 'pages/ShareNotes/index.scss';
 import DropdownSelect from 'components/dropdown-select';
+import axios from 'axios';
+
+interface ISubject {
+  subjectId: string;
+  name: string;
+}
+
+interface IForm {
+  subjectID: string;
+  subjectName: string;
+  teacherName: string;
+  exam: string;
+  year: string;
+  description: string;
+  file?: File;
+}
 
 const ShareNotesPage = () => {
-  const handleSubmit = () => {
-    return;
-  };
-  const handleChange = () => {
-    return;
+  // Form
+
+  const teacherNameRef = useRef<HTMLInputElement>(null);
+  const decriptionRef = useRef<HTMLTextAreaElement>(null);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    let form: IForm = {
+      subjectID: tosendSubjectId,
+      subjectName: tosendSubjectName,
+      teacherName: '',
+      exam: tosendExam,
+      year: tosendYear,
+      description: '',
+    };
+
+    if (
+      // form['subjectName'] != ' ' &&
+      teacherNameRef.current != null &&
+      form['exam'] != 'Exam' &&
+      form['year'] != 'Year'
+    ) {
+      form['teacherName'] = teacherNameRef.current.value;
+      if (decriptionRef.current != null) {
+        form['description'] = decriptionRef.current.value;
+      }
+      console.log(form);
+      // sendForm(form);
+    } else {
+      console.log('form invalid');
+    }
   };
 
-  const [tosentExam, setTosentExam] = useState<string>('Exam');
-  const [tosentYear, setTosentYear] = useState<string>('Year');
+  const sendForm = async (form: IForm) => {
+    try {
+      const res = await axios.post('#', form);
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
 
+  //Data to fill subjectID =>  subjectName
+  const [showSubjects, setShowSubjects] = useState<boolean>(false);
+  const [tosendSubjectId, setTosendSubjectId] = useState<string>('');
+  const [tosendSubjectName, setTosendSubjectName] = useState<string>('');
+
+  const [subjects, setSubjects] = useState<ISubject[]>([]);
+
+  const loadSubjects = async () => {
+    const res = await axios.get('https://life-at-kmitl-backend-production.up.railway.app/subject');
+    setSubjects(res.data);
+  };
+
+  const selectSubject = (id: string, name: string) => {
+    setTosendSubjectId(id);
+    setTosendSubjectName(name);
+    setShowSubjects(false);
+  };
+
+  const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setShowSubjects(true);
+    setTosendSubjectId(e.currentTarget.value);
+    if (e.currentTarget.value.length == 8) {
+      subjects.forEach((subject) => {
+        if (e.currentTarget.value == subject.subjectId) {
+          setTosendSubjectName(subject.name);
+        }
+      });
+    } else {
+      setTosendSubjectName('');
+    }
+  };
+
+  const SubjectMenu: React.FC = () => {
+    // useEffect(() => {
+    //   let handler = () => {
+    //     setShowSubjects(false);
+    //   };
+
+    //   document.addEventListener('mousedown', handler);
+    // });
+
+    return (
+      <div className='box'>
+        {subjects.map((subject) => {
+          if (
+            subject.subjectId.startsWith(tosendSubjectId) &&
+            0 < tosendSubjectId.length &&
+            tosendSubjectId.length < 8
+          ) {
+            return (
+              <div
+                className='subject-menu'
+                key={subjects.indexOf(subject)}
+                onClick={() => selectSubject(subject.subjectId, subject.name)}
+              >{`${subject.subjectId} ${subject.name}`}</div>
+            );
+          }
+        })}
+      </div>
+    );
+  };
+
+  //Data from DDSL =========
+  const [tosendExam, setTosendExam] = useState<string>('Exam');
+  const [tosendYear, setTosendYear] = useState<string>('Year');
   const updateState = (state: string): void => {
     if (!isNaN(Number(state))) {
-      setTosentYear(state);
+      setTosendYear(state);
     } else {
       if (state === 'Year') {
-        setTosentYear(state);
+        setTosendYear(state);
       } else {
-        setTosentExam(state);
+        setTosendExam(state);
       }
     }
   };
 
+  // useEffect(() => {
+  //   loadSubjects();
+  //   console.log('ineffect');
+  // }, []);
+
+  console.log('rerender');
+
   return (
-    <div>
-      <form className='form-sharing' onSubmit={handleSubmit}>
+    <div className='sharenote-page'>
+      <form className='form' onSubmit={handleSubmit}>
         <div className='title'>
           <h2>New Note</h2>
         </div>
-        <div className='input-contain'>
+        <div className='contain1'>
           <p>Subject ID</p>
-          <input type='text' />
+          <input type='text' name='subjectId' onChange={handleInputChange} value={`${tosendSubjectId}`} />
+          {showSubjects && <SubjectMenu />}
         </div>
-        <div className='input-contain'>
+        <div className='contain1'>
           <p>Teacher Name</p>
-          <input type='text' />
+          <input type='text' ref={teacherNameRef} />
         </div>
         <div className='exam-year'>
           <p>Exam / Year</p>
@@ -58,9 +178,9 @@ const ShareNotesPage = () => {
             />
           </div>
         </div>
-        <div className='input-contain'>
+        <div className='contain1'>
           <p>Description</p>
-          <textarea></textarea>
+          <textarea ref={decriptionRef}></textarea>
         </div>
         <div className='file-contain'>
           <p>File</p>
