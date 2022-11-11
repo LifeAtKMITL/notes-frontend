@@ -62,7 +62,7 @@ const ShareNotesPage = () => {
 
   const sendForm = async (form: IForm) => {
     try {
-      const res = await axios.post('#', form);
+      const res = await axios.post('https://life-at-kmitl-backend-production.up.railway.app/sharenote/uploads', form);
     } catch (error: any) {
       console.log(error);
     }
@@ -137,10 +137,10 @@ const ShareNotesPage = () => {
     }
   };
 
-  // useEffect(() => {
-  //   loadSubjects();
-  //   console.log('ineffect');
-  // }, []);
+  useEffect(() => {
+    loadSubjects();
+    console.log('ineffect');
+  }, []);
 
   console.log('rerender');
 
