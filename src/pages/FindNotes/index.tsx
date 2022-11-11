@@ -1,5 +1,5 @@
 import NoteCard from 'components/notecard';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import brand from 'assets/images/brand.png';
 import 'pages/FindNotes/index.scss';
 import { TbArrowsSort } from 'react-icons/tb';
@@ -12,7 +12,7 @@ import axios from 'axios';
 import temp from 'assets/test-resource/temp2.jpeg';
 import temp2 from 'assets/test-resource/secret.jpg';
 
-const data: any = [
+const data: INote[] = [
   {
     subjectID: 'string',
     subjectName: 'string',
@@ -69,19 +69,11 @@ const FindNotesPage = () => {
   //   console.log(res.data);
   //   setNotes(res.data);
   // };
-  const Title = () => {
-    return (
-      <div className='title'>
-        <img src={brand} />
-        <h2>Find Note</h2>
-        <p>
-          Sharing your notes? <a onClick={() => navigate('/share-notes')}>click here</a>
-        </p>
-      </div>
-    );
-  };
 
   const SearchEngine = () => {};
+
+  const textSearchRef = useRef<HTMLInputElement>(null);
+  const [isSearching, setIsSearching] = useState<boolean>(false);
 
   const SorterButton = () => {
     const [isSorting, setIsSorting] = useState<boolean>(false);
@@ -138,6 +130,17 @@ const FindNotesPage = () => {
   const [searchYear, setSearchYear] = useState<string>('Year');
   const [sortBy, setSortBy] = useState<string>('sort');
 
+  const Title = () => {
+    return (
+      <div className='title'>
+        <img src={brand} />
+        <h2>Find Note</h2>
+        <p>
+          Sharing your notes? <a onClick={() => navigate('/share-notes')}>click here</a>
+        </p>
+      </div>
+    );
+  };
   const updateState = (state: string): void => {
     if (!isNaN(Number(state))) {
       setSearchYear(state);
@@ -150,10 +153,14 @@ const FindNotesPage = () => {
     }
   };
 
+  // Component
+
+  // UseEffect
   useEffect(() => {
     let temp: INote[] = [];
     let filtExam = '';
     let filtYear = '';
+    let textSearch = '';
     allNotes.forEach((ele) => {
       if (searchExam != 'Exam') {
         filtExam = searchExam;
@@ -161,20 +168,24 @@ const FindNotesPage = () => {
       if (searchYear != 'Year') {
         filtYear = searchYear;
       }
-      if (ele.year.includes(filtYear) && ele.exam.includes(filtExam)) {
+      if (textSearchRef.current != null) {
+        textSearch = textSearchRef.current.value;
+      }
+
+      if (ele.year.includes(filtYear) && ele.exam.includes(filtExam) && ele.subjectID.includes(textSearch)) {
         temp.push(ele);
       }
       setNotes(temp);
     });
-  }, [searchExam, searchYear]);
-
+  }, [searchExam, searchYear, isSearching]);
+  //=========== Main ===========
   return (
     <div className='findNote'>
       <Title />
       <div className='search'>
         <div className='search-box'>
-          <input type='text' />
-          <button className='button-search'>
+          <input type='text' ref={textSearchRef} />
+          <button className='button-search' onClick={() => setIsSearching(!isSearching)}>
             <IoSearchOutline size={15} />
           </button>
         </div>
