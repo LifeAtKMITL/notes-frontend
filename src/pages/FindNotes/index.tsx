@@ -36,8 +36,21 @@ const data: INote[] = [
     authImage: 'string',
     authName: 'string',
     authID: 'string',
-    noteView: 1,
+    noteView: 10,
     noteLike: 7,
+  },
+  {
+    subjectID: 'string',
+    subjectName: 'string',
+    teacherName: 'string',
+    exam: 'Midterm',
+    year: '2020',
+    description: 'string',
+    authImage: 'string',
+    authName: 'string',
+    authID: 'string',
+    noteView: 5,
+    noteLike: 5,
   },
 ];
 
@@ -59,22 +72,76 @@ interface IProp {
   Notes: Array<INote>;
 }
 
+// Main Page
 const FindNotesPage = () => {
+  // Import Function
   const navigate = useNavigate();
-  const [allNotes, setAllNotes] = useState<INote[]>(data);
-  const [Notes, setNotes] = useState<INote[]>([]);
+
   // const loadMyNotes = async () => {
   //   const path = 'https://life-at-kmitl-backend-production.up.railway.app/sharenote/';
   //   const res = await axios.get(path);
   //   console.log(res.data);
   //   setNotes(res.data);
   // };
+  // Function
 
-  const SearchEngine = () => {};
+  const updateState = (state: string): void => {
+    if (!isNaN(Number(state))) {
+      setSearchYear(state);
+    } else {
+      if (state === 'Year') {
+        setSearchYear(state);
+      } else {
+        setSearchExam(state);
+      }
+    }
+  };
 
+  // Variable
+  const [allNotes, setAllNotes] = useState<INote[]>(data);
+  const [Notes, setNotes] = useState<INote[]>([]);
+
+  const [searchExam, setSearchExam] = useState<string>('Exam');
+  const [searchYear, setSearchYear] = useState<string>('Year');
   const textSearchRef = useRef<HTMLInputElement>(null);
+  const [sortBy, setSortBy] = useState<string>('sort');
+
   const [isSearching, setIsSearching] = useState<boolean>(false);
 
+  // Components
+  const Title = () => {
+    return (
+      <div className='title'>
+        <img src={brand} />
+        <h2>Find Note</h2>
+        <p>
+          Sharing your notes? <a onClick={() => navigate('/share-notes')}>click here</a>
+        </p>
+      </div>
+    );
+  };
+  const GenerateNotes: React.FC<IProp> = ({ Notes }) => {
+    return (
+      <div className='notes-container'>
+        {Notes.map((note: INote) => {
+          return (
+            <NoteCard
+              subjectName={note.subjectName}
+              examination={note.exam}
+              academicYear={note.year}
+              teacherName={note.teacherName}
+              userName={note.authName}
+              userPic={note.authImage}
+              notePic={''}
+              noteLike={note.noteLike}
+              noteView={note.noteView}
+              key={Notes.indexOf(note)}
+            />
+          );
+        })}
+      </div>
+    );
+  };
   const SorterButton = () => {
     const [isSorting, setIsSorting] = useState<boolean>(false);
 
@@ -104,57 +171,6 @@ const FindNotesPage = () => {
     );
   };
 
-  const GenerateNotes: React.FC<IProp> = ({ Notes }) => {
-    return (
-      <div className='notes-container'>
-        {Notes.map((note: INote) => {
-          return (
-            <NoteCard
-              subjectName={note.subjectName}
-              examination={note.exam}
-              academicYear={note.year}
-              teacherName={note.teacherName}
-              userName={note.authName}
-              userPic={note.authImage}
-              notePic={''}
-              noteLike={note.noteLike}
-              noteView={note.noteView}
-              key={Notes.indexOf(note)}
-            />
-          );
-        })}
-      </div>
-    );
-  };
-  const [searchExam, setSearchExam] = useState<string>('Exam');
-  const [searchYear, setSearchYear] = useState<string>('Year');
-  const [sortBy, setSortBy] = useState<string>('sort');
-
-  const Title = () => {
-    return (
-      <div className='title'>
-        <img src={brand} />
-        <h2>Find Note</h2>
-        <p>
-          Sharing your notes? <a onClick={() => navigate('/share-notes')}>click here</a>
-        </p>
-      </div>
-    );
-  };
-  const updateState = (state: string): void => {
-    if (!isNaN(Number(state))) {
-      setSearchYear(state);
-    } else {
-      if (state === 'Year') {
-        setSearchYear(state);
-      } else {
-        setSearchExam(state);
-      }
-    }
-  };
-
-  // Component
-
   // UseEffect
   useEffect(() => {
     let temp: INote[] = [];
@@ -175,9 +191,37 @@ const FindNotesPage = () => {
       if (ele.year.includes(filtYear) && ele.exam.includes(filtExam) && ele.subjectID.includes(textSearch)) {
         temp.push(ele);
       }
-      setNotes(temp);
     });
+    setNotes(temp);
   }, [searchExam, searchYear, isSearching]);
+
+  useEffect(() => {
+    let temp: INote[] = [...Notes];
+    if (sortBy == 'View') {
+      temp.sort((n1, n2) => {
+        if (n1.noteView > n2.noteView) {
+          return -1;
+        }
+        if (n1.noteView < n2.noteView) {
+          return 1;
+        }
+        return 0;
+      });
+      setNotes(temp);
+    } else if (sortBy == 'Like') {
+      temp.sort((n1, n2) => {
+        if (n1.noteLike > n2.noteLike) {
+          return -1;
+        }
+        if (n1.noteLike < n2.noteLike) {
+          return 1;
+        }
+        return 0;
+      });
+      setNotes(temp);
+    }
+  }, [sortBy]);
+
   //=========== Main ===========
   return (
     <div className='findNote'>
@@ -200,7 +244,7 @@ const FindNotesPage = () => {
       <GenerateNotes Notes={Notes} />
       <button
         onClick={() => {
-          console.log(sortBy, searchExam, searchYear, Notes);
+          console.log(sortBy);
         }}
       >
         Click
