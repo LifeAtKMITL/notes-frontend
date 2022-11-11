@@ -15,7 +15,7 @@ interface IForm {
   exam: string;
   year: string;
   description: string;
-  file?: File;
+  file: any;
 }
 
 const ShareNotesPage = () => {
@@ -23,6 +23,13 @@ const ShareNotesPage = () => {
 
   const teacherNameRef = useRef<HTMLInputElement>(null);
   const decriptionRef = useRef<HTMLTextAreaElement>(null);
+  const [file, setFile] = useState<File>();
+
+  const handleFile = (e: React.FormEvent<HTMLInputElement>) => {
+    if (e.currentTarget.files != null) {
+      setFile(e.currentTarget.files[0]);
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,10 +40,11 @@ const ShareNotesPage = () => {
       exam: tosendExam,
       year: tosendYear,
       description: '',
+      file: file,
     };
 
     if (
-      // form['subjectName'] != ' ' &&
+      form['subjectName'] != ' ' &&
       teacherNameRef.current != null &&
       form['exam'] != 'Exam' &&
       form['year'] != 'Year'
@@ -54,7 +62,7 @@ const ShareNotesPage = () => {
 
   const sendForm = async (form: IForm) => {
     try {
-      const res = await axios.post('#', form);
+      const res = await axios.post('https://life-at-kmitl-backend-production.up.railway.app/sharenote/uploads', form);
     } catch (error: any) {
       console.log(error);
     }
@@ -93,14 +101,6 @@ const ShareNotesPage = () => {
   };
 
   const SubjectMenu: React.FC = () => {
-    // useEffect(() => {
-    //   let handler = () => {
-    //     setShowSubjects(false);
-    //   };
-
-    //   document.addEventListener('mousedown', handler);
-    // });
-
     return (
       <div className='box'>
         {subjects.map((subject) => {
@@ -137,10 +137,10 @@ const ShareNotesPage = () => {
     }
   };
 
-  // useEffect(() => {
-  //   loadSubjects();
-  //   console.log('ineffect');
-  // }, []);
+  useEffect(() => {
+    loadSubjects();
+    console.log('ineffect');
+  }, []);
 
   console.log('rerender');
 
@@ -184,7 +184,12 @@ const ShareNotesPage = () => {
         </div>
         <div className='file-contain'>
           <p>File</p>
-          <input type='file' />
+          <input
+            type='file'
+            onChange={(e) => {
+              handleFile(e);
+            }}
+          />
         </div>
         <div>
           <button className='button-submit' type='submit'>
