@@ -242,13 +242,6 @@ const FindNotesPage = () => {
       </div>
       <SorterButton />
       <GenerateNotes Notes={Notes} />
-      <button
-        onClick={() => {
-          console.log(sortBy);
-        }}
-      >
-        Click
-      </button>
     </div>
   );
 };
