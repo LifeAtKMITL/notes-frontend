@@ -115,7 +115,7 @@ const FindNotesPage = () => {
         <img src={brand} />
         <h2>Find Note</h2>
         <p>
-          Sharing your notes? <a onClick={() => navigate('/share-notes')}>click here</a>
+          Shares your notes? <a onClick={() => navigate('/share-notes')}>click here</a>
         </p>
       </div>
     );
@@ -188,7 +188,7 @@ const FindNotesPage = () => {
         textSearch = textSearchRef.current.value;
       }
 
-      if (ele.year.includes(filtYear) && ele.exam.includes(filtExam) && ele.subjectID.includes(textSearch)) {
+      if (ele.year.includes(filtYear) && ele.exam.includes(filtExam) && ele.subjectName.includes(textSearch)) {
         temp.push(ele);
       }
     });
