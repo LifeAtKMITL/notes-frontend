@@ -79,7 +79,7 @@ const ProfilePage = () => {
   ]);
 
   const loadMyNotes = async () => {
-    const path = 'https://life-at-kmitl-backend-production.up.railway.app/sharenote';
+    const path = 'https://life-at-kmitl-backend-production.up.railway.app/sharenote/profile';
     const res = await axios.get(path);
     // console.log(res.data);
     setMyNotes(res.data[1]);
