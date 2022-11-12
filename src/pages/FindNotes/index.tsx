@@ -5,70 +5,11 @@ import 'pages/FindNotes/index.scss';
 import { TbArrowsSort } from 'react-icons/tb';
 import { IoSearchOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
+import { INote } from 'types/Note';
 import DropdownSelect from 'components/dropdown-select';
 import axios from 'axios';
 
-//fake resource
-import temp from 'assets/test-resource/temp2.jpeg';
-import temp2 from 'assets/test-resource/secret.jpg';
-
-const data: INote[] = [
-  {
-    subjectID: 'string',
-    subjectName: 'Software Architechture',
-    teacherName: 'string',
-    exam: 'Final',
-    year: '2022',
-    description: 'string',
-    authImage: 'string',
-    authName: 'string',
-    authID: 'string',
-    noteView: 1,
-    noteLike: 2,
-  },
-  {
-    subjectID: 'string',
-    subjectName: 'string',
-    teacherName: 'string',
-    exam: 'Midterm',
-    year: '2020',
-    description: 'string',
-    authImage: 'string',
-    authName: 'string',
-    authID: 'string',
-    noteView: 10,
-    noteLike: 7,
-  },
-  {
-    subjectID: 'string',
-    subjectName: 'string',
-    teacherName: 'string',
-    exam: 'Midterm',
-    year: '2020',
-    description: 'string',
-    authImage: 'string',
-    authName: 'string',
-    authID: 'string',
-    noteView: 5,
-    noteLike: 5,
-  },
-];
-
-interface INote {
-  subjectID: string;
-  subjectName: string;
-  teacherName: string;
-  exam: string;
-  year: string;
-  description: string;
-  file?: File;
-  authImage: string;
-  authName: string;
-  authID: string;
-  noteView: number;
-  noteLike: number;
-}
-interface IProp {
+interface IArrayNote {
   Notes: Array<INote>;
 }
 
@@ -82,6 +23,7 @@ const FindNotesPage = () => {
     const res = await axios.get(path);
     console.log(res.data);
     setAllNotes(res.data);
+    setNotes(res.data);
   };
   // Function
 
@@ -98,7 +40,7 @@ const FindNotesPage = () => {
   };
 
   // Variable
-  const [allNotes, setAllNotes] = useState<INote[]>(data);
+  const [allNotes, setAllNotes] = useState<INote[]>([]);
   const [Notes, setNotes] = useState<INote[]>([]);
 
   const [searchExam, setSearchExam] = useState<string>('Exam');
@@ -120,22 +62,22 @@ const FindNotesPage = () => {
       </div>
     );
   };
-  const GenerateNotes: React.FC<IProp> = ({ Notes }) => {
+  const GenerateNotes: React.FC<IArrayNote> = ({ Notes }) => {
     return (
       <div className='notes-container'>
-        {Notes.map((note: INote) => {
+        {Notes.map((note) => {
           return (
             <NoteCard
               subjectName={note.subjectName}
-              examination={note.exam}
-              academicYear={note.year}
-              teacherName={note.teacherName}
-              userName={note.authName}
-              userPic={note.authImage}
-              notePic={temp}
-              noteLike={note.noteLike}
-              noteView={note.noteView}
-              key={Notes.indexOf(note)}
+              exam={note.exam}
+              year={note.year}
+              teachers={note.teachers[0]}
+              userName={note.userName || ''}
+              userImage={note.userImage || ''}
+              noteImage={note.noteImage || ''}
+              likeCount={note.likeCount}
+              viewCount={note.viewCount}
+              key={note._id}
             />
           );
         })}
@@ -172,37 +114,46 @@ const FindNotesPage = () => {
   };
 
   // UseEffect
-  useEffect(() => {
-    let temp: INote[] = [];
-    let filtExam = '';
-    let filtYear = '';
-    let textSearch = '';
-    allNotes.forEach((ele) => {
-      if (searchExam != 'Exam') {
-        filtExam = searchExam;
-      }
-      if (searchYear != 'Year') {
-        filtYear = searchYear;
-      }
-      if (textSearchRef.current != null) {
-        textSearch = textSearchRef.current.value;
-      }
+  //search | filter
+  // useEffect(() => {
+  //   let temp: INote[] = [];
+  //   let filtExam = '';
+  //   let filtYear = '';
+  //   let textSearch = '';
+  //   allNotes.forEach((ele) => {
+  //     if (searchExam != 'Exam') {
+  //       filtExam = searchExam;
+  //     }
+  //     if (searchYear != 'Year') {
+  //       filtYear = searchYear;
+  //     }
+  //     if (textSearchRef.current != null) {
+  //       textSearch = textSearchRef.current.value;
+  //     }
 
-      if (ele.year.includes(filtYear) && ele.exam.includes(filtExam) && ele.subjectName.includes(textSearch)) {
-        temp.push(ele);
-      }
-    });
-    setNotes(temp);
-  }, [searchExam, searchYear, isSearching]);
+  //     try {
+  //       if (ele.year.includes(filtYear) &&
+  //       ele.exam.includes(filtExam) &&
+  //       ele.subjectName.toLowerCase().includes(textSearch.toLowerCase())) {
+  //         temp.push(ele);
+  //       }
+  //     } catch (error) {
+  //       console.log(ele);
+  //     }
+  //   });
 
+  //   setNotes(temp);
+  // }, [searchExam, searchYear, isSearching]);
+
+  // sort
   useEffect(() => {
     let temp: INote[] = [...Notes];
     if (sortBy == 'View') {
       temp.sort((n1, n2) => {
-        if (n1.noteView > n2.noteView) {
+        if (n1.viewCount > n2.viewCount) {
           return -1;
         }
-        if (n1.noteView < n2.noteView) {
+        if (n1.viewCount < n2.viewCount) {
           return 1;
         }
         return 0;
@@ -210,10 +161,10 @@ const FindNotesPage = () => {
       setNotes(temp);
     } else if (sortBy == 'Like') {
       temp.sort((n1, n2) => {
-        if (n1.noteLike > n2.noteLike) {
+        if (n1.likeCount > n2.likeCount) {
           return -1;
         }
-        if (n1.noteLike < n2.noteLike) {
+        if (n1.likeCount < n2.likeCount) {
           return 1;
         }
         return 0;
@@ -222,9 +173,9 @@ const FindNotesPage = () => {
     }
   }, [sortBy]);
 
-  // useEffect(() => {
-  //   loadMyNotes();
-  // }, []);
+  useEffect(() => {
+    loadMyNotes();
+  }, []);
 
   //=========== Main ===========
   return (
