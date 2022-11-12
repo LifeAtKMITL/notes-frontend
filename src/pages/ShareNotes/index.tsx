@@ -3,6 +3,8 @@ import 'pages/ShareNotes/index.scss';
 import DropdownSelect from 'components/dropdown-select';
 import axios from 'axios';
 
+import temp from 'assets/images/newnote.png';
+
 interface ISubject {
   subjectId: string;
   name: string;
@@ -44,7 +46,7 @@ const ShareNotesPage = () => {
     };
 
     if (
-      form['subjectName'] != ' ' &&
+      form['subjectName'] != '' &&
       teacherNameRef.current != null &&
       form['exam'] != 'Exam' &&
       form['year'] != 'Year'
@@ -148,7 +150,7 @@ const ShareNotesPage = () => {
     <div className='sharenote-page'>
       <form className='form' onSubmit={handleSubmit}>
         <div className='title'>
-          <h2>New Note</h2>
+          <img src={temp} className='test' alt='' />
         </div>
         <div className='contain1'>
           <p>Subject ID</p>
@@ -186,6 +188,7 @@ const ShareNotesPage = () => {
           <p>File</p>
           <input
             type='file'
+            id='file'
             onChange={(e) => {
               handleFile(e);
             }}
