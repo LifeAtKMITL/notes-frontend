@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.scss';
 import { CgNotes } from 'react-icons/cg';
 import { FaHeart } from 'react-icons/fa';
 import { BsFillEyeFill } from 'react-icons/bs';
+import { INote } from 'types/Note';
 import NoteCard from 'components/notecard';
 import axios from 'axios';
 
@@ -11,84 +12,67 @@ import temp from 'assets/test-resource/secret.jpg';
 import temp2 from 'assets/test-resource/temp2.jpeg';
 import data from 'assets/test-resource/data.json';
 
-interface INote {
-  subjectID: string;
-  subjectName: string;
-  teacherName: string;
-  exam: string;
-  year: string;
-  description: string;
-  file?: File;
-  authImage: string;
-  authName: string;
-  authID: string;
-  noteView: number;
-  noteLike: number;
-}
-
-interface Iinfo {
+interface IMyInfo {
   userName: string;
   userImage: string;
   allLikes: number;
   allNotes: number;
   allViews: number;
 }
-
-interface Iprop {
+interface IData {
+  userName: string;
+  userImage: string;
+  Notes: INote[];
+}
+interface IArrayNote {
   Notes: Array<INote>;
 }
 
 const ProfilePage = () => {
-  //tempUserId
-  const [myInfo, setMyInfo] = useState<Iinfo>({
-    userName: 'Yor Forger',
+  // var
+  const [myInfo, setMyInfo] = useState<IMyInfo>({
+    allNotes: 0,
+    allLikes: 0,
+    allViews: 0,
+    userName: 'Yor',
     userImage: temp,
-    allLikes: 1,
-    allNotes: 2,
-    allViews: 3,
   });
-  const [myNotes, setMyNotes] = useState<INote[]>([
-    {
-      subjectID: 'Gring',
-      subjectName: 'Gring',
-      teacherName: 'string',
-      exam: 'string',
-      year: 'string',
-      description: 'string',
-      // file?: File;
-      authImage: 'string',
-      authName: 'string',
-      authID: 'string',
-      noteView: 1,
-      noteLike: 1,
-    },
-    {
-      subjectID: 'string',
-      subjectName: 'string',
-      teacherName: 'string',
-      exam: 'string',
-      year: 'string',
-      description: 'string',
-      // file?: File;
-      authImage: 'string',
-      authName: 'string',
-      authID: 'string',
-      noteView: 1,
-      noteLike: 5,
-    },
-  ]);
+  const [myNotes, setMyNotes] = useState<INote[]>([]);
 
+  // func
   const loadMyNotes = async () => {
     const path = 'https://life-at-kmitl-backend-production.up.railway.app/sharenote/profile';
     const res = await axios.get(path);
-    // console.log(res.data);
-    setMyNotes(res.data[1]);
-    setMyInfo(res.data[0]);
+
+    // Initial
+    let Notes: INote[] = res.data.Notes;
+    let userName = res.data.userName;
+    let userImage = res.data.userImage;
+
+    setMyNotes(Notes);
+
+    // MyInfo
+    let nubNotes = 0;
+    let nubLikes = 0;
+    let nubViews = 0;
+    Notes.map((note) => {
+      nubNotes += 1;
+      nubLikes += note.likeCount;
+      nubViews += note.viewCount;
+    });
+    let temp: IMyInfo = {
+      allNotes: nubNotes,
+      allLikes: nubLikes,
+      allViews: nubViews,
+      userName: userName,
+      userImage: userImage,
+    };
+    setMyInfo(temp);
   };
 
-  //components
+  // Components
 
-  const MyNotes: React.FC<Iprop> = ({ Notes }) => {
+  const MyNotes: React.FC<IArrayNote> = ({ Notes }) => {
     // console.log(Notes);
     return (
       <div className='my-notes'>
@@ -97,15 +81,15 @@ const ProfilePage = () => {
           return (
             <NoteCard
               subjectName={note.subjectName}
-              examination={note.exam}
-              academicYear={note.year}
-              teacherName={note.teacherName}
-              userName={note.authName}
-              userPic={note.authImage}
-              notePic={''}
-              noteLike={note.noteLike}
-              noteView={note.noteView}
-              key={Notes.indexOf(note)}
+              exam={note.exam}
+              year={note.year}
+              teachers={note.teachers[0]}
+              userName={note.userName || ''}
+              userImage={note.userImage || ''}
+              noteImage={note.noteImage || ''}
+              likeCount={note.likeCount}
+              viewCount={note.viewCount}
+              key={note._id}
             />
           );
         })}
@@ -113,7 +97,7 @@ const ProfilePage = () => {
     );
   };
 
-  const MyInfo = (myInfo: Iinfo) => {
+  const MyInfo = (MyInfo: IMyInfo) => {
     return (
       <div className='head'>
         <div className='img-contain'>
@@ -140,7 +124,9 @@ const ProfilePage = () => {
     );
   };
 
-  // loadMyNotes();
+  useEffect(() => {
+    // loadMyNotes();
+  }, []);
 
   // main
   return (
