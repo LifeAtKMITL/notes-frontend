@@ -1,9 +1,14 @@
+$background_color: #282828;
+$textcolor: #cecece;
 .profile-page
 {
+    background-color: #2f2f2f;
+    min-height: calc(100vh - 60px);
     .head{
         display: grid;
         grid-template-columns: 1fr 1fr;
-        margin-top: 20px;
+        padding-top: 20px;
+        margin-bottom: 20px;
         height: 160px;
         .img-contain{
             display: flex;
@@ -12,12 +17,13 @@
                 width: 115px;
                 height: 115px;
                 border-radius: 50%;
-                border: black solid 2px;
+                border: #ffffff solid 2px;
             }
         }
 
         .info{
             margin-top: 10px;
+            color: $textcolor;
             h2{
                 font-size: 24px;
             }
@@ -30,7 +36,7 @@
                 div{
                     p{
                         font-size: 14px;
-                        margin-top: -8px;
+                        margin-top: -5px;
                         text-align: center;
                     }
                 }
@@ -40,17 +46,17 @@
 
     .my-notes{
         position: relative;
-        background-color: rgb(244, 244, 244);
+        background-color: $background_color;
         display: flex;
         flex-direction: column;
         align-items: center;
         border-radius: 30px 30px 0 0;
-        padding: 30px 0;
+        padding: 40px 0;
         min-height: calc(100vh - 180px - 60px); // 100vh - (profile info + margin ) - navabar height
-        gap: 25px;
+        gap: 10px;
 
         .notes{
-            background-color: rgb(215, 215, 215);
+            background-color: $textcolor;
             padding: 0 30px;
             border-radius: 5px;
             position: absolute;

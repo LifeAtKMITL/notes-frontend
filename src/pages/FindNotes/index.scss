@@ -1,15 +1,23 @@
+$background_color:#252525;
+$textcolor:#ffffff;
+$highligh_color: #ffa113;
+
+
 .findNote{
+    background-color: $background_color;
+    min-height: calc(100vh - 60px);
+    padding-bottom: 20px;
     .title{
-        margin-top: 40px;
+        padding-top: 40px;
         margin-bottom: 30px;
         display: flex;
         flex-direction: column;
         align-items: center;
+        color: $textcolor;
         p{
-            color: rgb(163, 150, 150);
             a{
                 text-decoration: none;
-                color: rgb(255, 122, 5);
+                color: $highligh_color;
             }
         }
         img{
@@ -34,7 +42,7 @@
             input{
                 width: 87%;
                 border: none;
-                background-color:  #efefefef;
+                background-color:  $textcolor;
                 border-radius: 5px 0 0 5px;
                 padding: 5px 5px;
             }
@@ -68,9 +76,11 @@
     
     
     .notes-container{
+        margin-top: 5px;
         display: flex;
         flex-direction: column;
         align-items: center;
+        gap: 10px;
     }
 }
 
@@ -79,7 +89,7 @@
  
 
  .sorter-container{
-    margin-top: 20px;
+    margin-top: 25px;
     margin-right: 20px;
     display: flex;
     flex-direction: column;
@@ -90,15 +100,16 @@
     .sorter-button{
         display: flex;
         border: none;
-        background-color: white;
+        background-color: $background_color;
         cursor: pointer;
     
         h3{
-            color: #7e7e7eef;
+            color: #8b8b8b;
         }
         .icon{
             margin-left: 2px;
             margin-top: 5px;
+            color: $textcolor;
         }
     }
 

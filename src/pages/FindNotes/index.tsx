@@ -15,7 +15,7 @@ import temp2 from 'assets/test-resource/secret.jpg';
 const data: INote[] = [
   {
     subjectID: 'string',
-    subjectName: 'string',
+    subjectName: 'Software Architechture',
     teacherName: 'string',
     exam: 'Final',
     year: '2022',
@@ -132,7 +132,7 @@ const FindNotesPage = () => {
               teacherName={note.teacherName}
               userName={note.authName}
               userPic={note.authImage}
-              notePic={''}
+              notePic={temp}
               noteLike={note.noteLike}
               noteView={note.noteView}
               key={Notes.indexOf(note)}

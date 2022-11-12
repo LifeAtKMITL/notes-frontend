@@ -1,5 +1,5 @@
 $maincolor: #131313;
-$dropdown_color: rgb(250, 235, 215,0.9);
+$dropdown_color: rgb(63,63,63,0.95);
 
 .nav-container{
     background-color: $maincolor;
@@ -39,7 +39,7 @@ $dropdown_color: rgb(250, 235, 215,0.9);
 .nav-dropdown{
     background-color: $dropdown_color;
     position: absolute;
-    color: rgb(4, 4, 3);
+    color: rgb(255, 255, 255);
     border-radius: 5px;
     font-size: medium;
     font-weight: bold;
