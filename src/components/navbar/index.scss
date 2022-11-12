@@ -1,4 +1,4 @@
-$maincolor: #172A6C;
+$maincolor: #131313;
 $dropdown_color: rgb(250, 235, 215,0.9);
 
 .nav-container{
@@ -22,6 +22,7 @@ $dropdown_color: rgb(250, 235, 215,0.9);
         width: 40px;
         height: 40px;
         cursor: pointer;
+        border: #3f3f3f solid 0.1px;
     }
 
     .nav-logo{
@@ -29,6 +30,7 @@ $dropdown_color: rgb(250, 235, 215,0.9);
         width: 106px;
         scale: 1;
         position: relative;
+        object-fit: cover;
         left: 5px;
     }
 }
