@@ -77,12 +77,12 @@ const FindNotesPage = () => {
   // Import Function
   const navigate = useNavigate();
 
-  // const loadMyNotes = async () => {
-  //   const path = 'https://life-at-kmitl-backend-production.up.railway.app/sharenote/';
-  //   const res = await axios.get(path);
-  //   console.log(res.data);
-  //   setNotes(res.data);
-  // };
+  const loadMyNotes = async () => {
+    const path = 'https://life-at-kmitl-backend-production.up.railway.app/sharenote/';
+    const res = await axios.get(path);
+    console.log(res.data);
+    setAllNotes(res.data);
+  };
   // Function
 
   const updateState = (state: string): void => {
@@ -221,6 +221,10 @@ const FindNotesPage = () => {
       setNotes(temp);
     }
   }, [sortBy]);
+
+  // useEffect(() => {
+  //   loadMyNotes();
+  // }, []);
 
   //=========== Main ===========
   return (
