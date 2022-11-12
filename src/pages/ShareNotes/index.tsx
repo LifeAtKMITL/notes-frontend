@@ -11,13 +11,14 @@ interface ISubject {
 }
 
 interface IForm {
-  subjectID: string;
+  subjectId: string;
   subjectName: string;
-  teacherName: string;
+  teachers: string;
   exam: string;
   year: string;
   description: string;
-  file: any;
+  files: any;
+  sharenoteCollectionName: string;
 }
 
 const ShareNotesPage = () => {
@@ -25,52 +26,57 @@ const ShareNotesPage = () => {
 
   const teacherNameRef = useRef<HTMLInputElement>(null);
   const decriptionRef = useRef<HTMLTextAreaElement>(null);
-  const [file, setFile] = useState<File>();
+  const [files, setFiles] = useState<File>();
+  const [loading, setLoading] = useState(false);
 
   const handleFile = (e: React.FormEvent<HTMLInputElement>) => {
     if (e.currentTarget.files != null) {
-      setFile(e.currentTarget.files[0]);
+      setFiles(e.currentTarget.files[0]);
     }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
+    setLoading(true);
     e.preventDefault();
     let form: IForm = {
-      subjectID: tosendSubjectId,
+      subjectId: tosendSubjectId,
       subjectName: tosendSubjectName,
-      teacherName: '',
+      teachers: teacherNameRef.current?.value || '',
       exam: tosendExam,
       year: tosendYear,
-      description: '',
-      file: file,
+      description: decriptionRef.current?.value || '',
+      files: files,
+      sharenoteCollectionName: tosendSubjectName,
     };
 
-    if (
-      form['subjectName'] != '' &&
-      teacherNameRef.current != null &&
-      form['exam'] != 'Exam' &&
-      form['year'] != 'Year'
-    ) {
-      form['teacherName'] = teacherNameRef.current.value;
-      if (decriptionRef.current != null) {
-        form['description'] = decriptionRef.current.value;
-      }
-      console.log(form);
-      // sendForm(form);
-    } else {
-      console.log('form invalid');
+    if (!form.teachers) {
+      alert('teacher empty');
+      return;
     }
+    console.log(form);
+    sendForm(form);
   };
-
+  const token =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlUwZjk1NTdiMDlmMTI0N2U0ZGUyYmYzYjFjYjcyNjc5ZSIsImlhdCI6MTY2ODAwMTgyOSwiZXhwIjoxNjcwNTkzODI5fQ.hj-m3KVnEx6hwPjJGOqkAnBZIFocOB8B8Ey_j5uuoTA';
   const sendForm = async (form: IForm) => {
     try {
-      const res = await axios.post('https://life-at-kmitl-backend-production.up.railway.app/sharenote/uploads', form);
+      const res = await axios.post('https://life-at-kmitl-backend-production.up.railway.app/sharenote/uploads', form, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log(res);
+      setLoading(false);
+      if (res.data == 400) {
+        alert('invalid');
+      }
     } catch (error: any) {
       console.log(error);
     }
   };
 
-  //Data to fill subjectID =>  subjectName
+  //Data to fill subjectId =>  subjectName
   const [showSubjects, setShowSubjects] = useState<boolean>(false);
   const [tosendSubjectId, setTosendSubjectId] = useState<string>('');
   const [tosendSubjectName, setTosendSubjectName] = useState<string>('');
@@ -145,6 +151,10 @@ const ShareNotesPage = () => {
   }, []);
 
   console.log('rerender');
+
+  if (loading) {
+    return <div>loading...</div>;
+  }
 
   return (
     <div className='sharenote-page'>
