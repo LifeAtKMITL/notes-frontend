@@ -1,57 +1,46 @@
 import React from 'react';
 import './index.scss';
 import { FaGraduationCap, FaHeart } from 'react-icons/fa';
-import { HiOutlineDownload } from 'react-icons/hi';
+import { BsFillEyeFill } from 'react-icons/bs';
+import { INoteCard } from 'types/Note';
 
-interface INote {
-  subjectName: string;
-  examination: string;
-  academicYear: string;
-  teacherName: string;
-  userName: string;
-  userPic: string;
-  notePic: string;
-  noteLike: number;
-  noteView: number;
-}
-
-const NoteCard: React.FC<INote> = ({
+const NoteCard: React.FC<INoteCard> = ({
   subjectName,
-  examination,
-  academicYear,
-  teacherName,
+  exam,
+  year,
+  teachers,
   userName,
-  userPic,
-  notePic,
-  noteLike,
-  noteView,
+  userImage,
+  noteImage,
+  likeCount,
+  viewCount,
 }) => {
   return (
     <div className='card-container'>
       <div className='pic-box'>
-        <img src={notePic} />
+        <img src={noteImage} />
       </div>
       <div className='info-box'>
         <h3>{subjectName}</h3>
         <h3>
-          {examination} / {academicYear}
+          {exam} / {year}
         </h3>
         <div>
           <FaGraduationCap size={15} className='icon' />
-          <p>{teacherName}</p>
+          <p>{teachers}</p>
         </div>
         <div>
           <p>By </p>
-          <img src={userPic} />
+          <img src={userImage} />
           <p>{userName}</p>
         </div>
         <div>
           <FaHeart size={15} className='icon' />
-          <p>({noteLike})</p>
+          <p>({likeCount})</p>
         </div>
         <div>
-          <HiOutlineDownload size={15} className='icon' />
-          <p> ({noteView})</p>
+          <BsFillEyeFill size={15} className='icon' />
+          <p> ({viewCount})</p>
         </div>
       </div>
     </div>
