@@ -12,12 +12,13 @@ interface IProp {
 const NoteCard: React.FC<IProp> = ({ Note }) => {
   const navigate = useNavigate();
   const toDetail = ({ Note }: IProp) => {
-    let pdf = Note.files[0].url.replace(/\//g, '-');
+    // console.log('pdf before = ', Note.files[0].url);
+    let pdf = Note.files[0].url.replaceAll('%2f', '-=');
+    // console.log('pdf after = ', pdf);
 
-    let pic = Note.image.replace(/\//g, '-');
+    let pic = Note.image;
     navigate(
-      `/notes-detail/${Note._id}/${Note.subjectName}/${Note.teachers[0]}/${Note.exam}/${Note.year}/${Note.description}/${Note.username}/${Note.viewCount}/${Note.likeCount}/${pic}/${pdf}`,
-      //   // '/notes-detail',
+      `/notes-detail?id=${Note._id}&subjectName=${Note.subjectName}&teacher=${Note.teachers[0]}&exam=${Note.exam}&year=${Note.year}&description=${Note.description}&username=${Note.username}&views=${Note.viewCount}&likes=${Note.likeCount}&pic=${pic}&pdf=${pdf}`,
     );
   };
   return (
@@ -34,7 +35,7 @@ const NoteCard: React.FC<IProp> = ({ Note }) => {
           <FaGraduationCap size={15} className='icon' />
           <p>{Note.teachers[0]}</p>
         </div>
-        <div>
+        <div className='user'>
           <p>By </p>
           <img src={Note.image} />
           <p>{Note.username}</p>

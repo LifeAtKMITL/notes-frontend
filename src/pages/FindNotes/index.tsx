@@ -21,7 +21,6 @@ const FindNotesPage = () => {
   const loadMyNotes = async () => {
     const path = 'https://life-at-kmitl-backend-production.up.railway.app/sharenote/';
     const res = await axios.get(path);
-    console.log(res.data);
     const Data = res.data;
 
     let collect: INote[] = [];
@@ -31,7 +30,6 @@ const FindNotesPage = () => {
       note.image = data.image;
       collect.push(note);
     });
-    console.log('add to note = ', collect);
     setAllNotes(collect);
     setNotes(collect);
   };
