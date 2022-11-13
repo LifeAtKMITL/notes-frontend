@@ -15,7 +15,8 @@ const NoteCard: React.FC<IProp> = ({ Note }) => {
     let a = Note.files[0].url.replace(/\//g, '-');
 
     navigate(
-      `/notes-detail/${Note.subjectName}/${Note.exam}/${Note.year}/${Note.teachers}/${Note.image}/${Note.description}/${a}`,
+      // `/notes-detail/${Note.subjectName}/${Note.exam}/${Note.year}/${Note.teachers}/${Note.image}/${Note.description}/${a}`,
+      '/notes-detail',
     );
   };
   return (

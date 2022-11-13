@@ -1,10 +1,4 @@
-export interface IMyInfo {
-    userName: string;
-    userImage: string;
-    allLikes: number;
-    allNotes: number;
-    allViews: number;
-}
+// Get from API profile
 export interface IData {
     userId: string;
     username: string;
@@ -13,6 +7,13 @@ export interface IData {
     collectionCount: number;
     totalViewCount: number;
     likeCount: number;
+}
+export interface IMyInfo {
+    userName: string;
+    userImage: string;
+    allLikes: number;
+    allNotes: number;
+    allViews: number;
 }
 
 export interface IMyData{
