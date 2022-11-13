@@ -59,6 +59,7 @@ const ShareNotesPage = () => {
     console.log(form);
     setLoading(true);
     sendForm(form);
+    setTosendSubjectId('');
   };
   const sendForm = async (form: IForm) => {
     try {
