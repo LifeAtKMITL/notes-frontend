@@ -13,7 +13,6 @@ const Container = styled.div`
     align-items:center;
     `
 const Wrapper = styled.div`
-/* background-color: #c0b9b9; */
     margin : .5em;
     padding:.5em;
     display:flex;
@@ -57,53 +56,73 @@ const Under = styled.div`
     margin-top: 1em;
     padding: 1em;
 `
+const DivTag = styled.div`
+    /* padding: 1em; */
+    background-color: #ffffff;
+    height: 10%;
+    width: 100%;
+    display:flex;
+    justify-content:flex-start;
+`
+
 
 
 
 
 const DetailNote = () => {
-    const [sharenote, setSharenote] = useState('');
-    const id:string = 'U0f9557b09f1247e4de2bf3b1cb72679e'
-    useEffect(() => {
-    loadSharenote(id);
-    console.log(sharenote);
-  }, []);
-  const loadSharenote = (id:string) => {
-    getShareNote(id)
-      .then(res => {
-        console.log(res.data);
-        setSharenote(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
+    // const [sharenote, setSharenote] = useState('');
+    // const id:string = 'U0f9557b09f1247e4de2bf3b1cb72679e'
+    //     useEffect(() => {
+    //     loadSharenote(id);
+    //     console.log(sharenote);
+    //   }, []);
+    //   const loadSharenote = (id:string) => {
+    //     getShareNote(id)
+    //       .then(res => {
+    //         console.log(res.data);
+    //         setSharenote(res.data);
+    //       })
+    //       .catch(err => {
+    //         console.log(err);
+    //       });
+    // const [file,setFile] = useState('sdfasdfsasdfa')
+    const userId = '124hakfh23hjk'
+    const userName = 'sumet suansamran'
+    const subjectId = '102314'
+    const subjectName = 'data-com'
+    const teacherName = 'parinya ja'
+    const file = 'https://firebasestorage.googleapis.com/v0/b/lifekmitl.appspot.com/o/Images%2FU0f9557b09f1247e4de2bf3b1cb72679e%2FDIGITAL%20INTELLIGENCE%20QUOTIENT_%40V1%2F0434296d-85d6-409f-a581-f76bebf45de8?alt=media&token=3e005ed2-f6bb-4c42-ad3e-a2e811620c12'
+    const exam = 'mid'
+    const year = '2001'
+    const likeConut = '10'
+    const viewConut = '12'
+    const desciption = 'gu write description pid'
   return (
     <Container>
         <Wrapper className='glass'>
             <Top>
-                {/* <h:graphicImage value="https://firebasestorage.googleapis.com/v0/b/lifekmitl.appspot.com/o/Images%2F63011013%2FMATH_%40V1%2F2948373b-faf7-4978-a871-fbd26a4bc233?alt=media&token=8d3ab519-6174-4855-8ff2-ab015574e49a" width="800" height="200" /> */}
-                {/* <object data="https://firebasestorage.googleapis.com/v0/b/lifekmitl.appspot.com/o/Images%2F63011013%2FMATH_%40V1%2F2948373b-faf7-4978-a871-fbd26a4bc233?alt=media&token=8d3ab519-6174-4855-8ff2-ab015574e49a" height={1000} width={600}/> */}
                 <iframe
                 id = 'iframepdf'
-                // src="https://firebasestorage.googleapis.com/v0/b/lifekmitl.appspot.com/o/Images%2F63011013%2FMATH_%40V2%2Fb4a30c8d-fe1d-4d56-8eeb-d371a50c7830?alt=media&token=0e7e3b67-72c1-42a6-908f-cf4780b9fbe6"
+                src = {file}
                 frameBorder="2"
                 scrolling="no"
                 height="100%"
                 width="100%"
                 ></iframe>
-                {/* <img src='https://firebasestorage.googleapis.com/v0/b/lifekmitl.appspot.com/o/Images%2F123%2F234_%40V5%2F1f1c0726-75d5-4f6e-99b8-15b5fd29481b?alt=media&token=698565a4-2024-4757-92b0-9f16e352257b'/> */}
             </Top>
             <Mid>
-                <h1>Software-Arch</h1>
-                <h3>Final/2022</h3>
-                <h3>by sumet suansamran</h3>
-                <button className="button-28" role="button">LIKE</button>
+                <h1>{subjectName}</h1>
+                <h3>{teacherName}</h3>
+                <DivTag><button className="button-12" role="button">{exam}</button><button className="button-12" role="button">{year}</button></DivTag>
+                
+                
+                <h3>{userName}</h3>
+                <button className="button-28" role="button">LIKE  ({likeConut})</button>
             </Mid>
             <Under>
                 {/* <div ></div> */}
                 <p>Description</p>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officia, quos!</p>
+                <p>{desciption}</p>
             </Under>
         </Wrapper>
     </Container>
