@@ -1,9 +1,13 @@
 import DetailNote from 'components/detail-note';
-import React from 'react';
+import React, { useContext } from 'react';
+import { userContext } from 'App';
+import { useParams } from 'react-router-dom';
 
 const DetailNotesPage = () => {
-  console.log('---h i---')
-  return <DetailNote/>;
+  const context = useContext(userContext);
+  let { _id, subjectName, teachers, exam, year, description, username, viewCount, likeCount, pdf, pic } = useParams();
+
+  return <DetailNote />;
 };
 
 export default DetailNotesPage;

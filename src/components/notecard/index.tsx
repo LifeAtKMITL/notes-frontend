@@ -12,11 +12,12 @@ interface IProp {
 const NoteCard: React.FC<IProp> = ({ Note }) => {
   const navigate = useNavigate();
   const toDetail = ({ Note }: IProp) => {
-    let a = Note.files[0].url.replace(/\//g, '-');
+    let pdf = Note.files[0].url.replace(/\//g, '-');
 
+    let pic = Note.image.replace(/\//g, '-');
     navigate(
-      // `/notes-detail/${Note.subjectName}/${Note.exam}/${Note.year}/${Note.teachers}/${Note.image}/${Note.description}/${a}`,
-      '/notes-detail',
+      `/notes-detail/${Note._id}/${Note.subjectName}/${Note.teachers[0]}/${Note.exam}/${Note.year}/${Note.description}/${Note.username}/${Note.viewCount}/${Note.likeCount}/${pic}/${pdf}`,
+      //   // '/notes-detail',
     );
   };
   return (

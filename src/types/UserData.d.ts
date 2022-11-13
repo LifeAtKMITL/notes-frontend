@@ -7,6 +7,7 @@ export interface IData {
     collectionCount: number;
     totalViewCount: number;
     likeCount: number;
+    likedNotes?: string[];
 }
 export interface IMyInfo {
     userName: string;

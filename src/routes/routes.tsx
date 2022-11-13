@@ -12,8 +12,7 @@ const Routes = () => {
       <Route path='/' element={<HomePage />} />
       <Route path='/find-notes' element={<FindNotesPage />} />
       <Route
-        path='/notes-detail'
-        // path='/notes-detail/:subjectName/:exam/:year/:teacher/:userImage/:description/:file'
+        path='/notes-detail/:_id/:subjectName/:teachers/:exam/:year/:description/:username/:viewCount/:likeCount/:pic/:pdf'
         element={<DetailNotesPage />}
       />
       <Route path='/share-notes' element={<ShareNotesPage />} />

@@ -2,22 +2,22 @@ import axios from 'axios';
 import Loading from 'components/loading';
 import Navbar from 'components/navbar';
 import React, { useEffect, useState } from 'react';
-import { CgSleep } from 'react-icons/cg';
 import Routes from 'routes/routes';
 import { IData, IMyData } from 'types/UserData';
 
 const defMydata = {
-  userName: '',
-  userImage: '',
-  allLikes: 0,
-  allNotes: 0,
-  allViews: 0,
-  myNotes: [],
+  userId: '',
+  username: '',
+  image: '',
+  sharenotes: [],
+  collectionCount: 0,
+  totalViewCount: 0,
+  likeCount: 0,
 };
-const userContext = React.createContext<IMyData>(defMydata);
+const userContext = React.createContext<IData>(defMydata);
 
 function App() {
-  let myData: IMyData = defMydata;
+  let myData: IData = defMydata;
   const [ready, setReady] = useState(false);
 
   const loadMyData = async () => {
@@ -32,12 +32,13 @@ function App() {
         },
       });
       const Data: IData = res.data;
-      myData.allLikes = Data.likeCount;
-      myData.allNotes = Data.collectionCount;
-      myData.allViews = Data.totalViewCount;
-      myData.myNotes = Data.sharenotes;
-      myData.userImage = Data.image;
-      myData.userName = Data.username;
+      myData.likeCount = Data.likeCount;
+      myData.collectionCount = Data.collectionCount;
+      myData.totalViewCount = Data.totalViewCount;
+      myData.sharenotes = Data.sharenotes;
+      myData.image = Data.image;
+      myData.username = Data.username;
+      myData.likedNotes = Data.likedNotes;
 
       setReady(true);
     } catch (error) {
@@ -53,7 +54,7 @@ function App() {
   return (
     <div>
       <userContext.Provider value={myData}>
-        <Navbar userImage={myData.userImage} />
+        <Navbar userImage={myData.image} />
         <Routes />
       </userContext.Provider>
     </div>

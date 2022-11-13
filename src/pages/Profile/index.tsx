@@ -17,11 +17,11 @@ const ProfilePage = () => {
   // var
   const myData = useContext(userContext);
   const [myInfo, setMyInfo] = useState<IMyInfo>({
-    allNotes: myData.allNotes,
-    allLikes: myData.allLikes,
-    allViews: myData.allViews,
-    userName: myData.userName,
-    userImage: myData.userImage,
+    allNotes: myData.collectionCount,
+    allLikes: myData.likeCount,
+    allViews: myData.totalViewCount,
+    userName: myData.username,
+    userImage: myData.image,
   });
   const [myNotes, setMyNotes] = useState<INote[]>([]);
   const [isDel, setIsDel] = useState(false);
