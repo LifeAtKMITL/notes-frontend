@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getShareNote } from './getSharenote';
+import { getShareNote, putLike } from './getSharenote';
 import './index.css';
 
 const Container = styled.div`
-    color:white;
+  color: white;
   height: 100%;
   width: 100%;
   padding: 0.5em;
@@ -75,23 +75,23 @@ const DivTag2 = styled.div`
 `;
 
 interface IDetailNote {
-    id: string;
-    subjectName: string;
-    teacher: string;
-    exam: string;
-    year: string;
-    description: string;
-    username: string;
-    views: number;
-    likes: number;
-    pic: string;
-    pdf: string;
-    likeArr: string[];
-  }
-  interface Iprops{
-    props:IDetailNote
+  id: string;
+  subjectName: string;
+  teacher: string;
+  exam: string;
+  year: string;
+  description: string;
+  username: string;
+  views: number;
+  likes: number;
+  pic: string;
+  pdf: string;
+  likeArr: string[];
 }
-const DetailNote = ({props}:Iprops) => {
+interface Iprops {
+  props: IDetailNote;
+}
+const DetailNote = ({ props }: Iprops) => {
   // const [sharenote, setSharenote] = useState('');
   // const id:string = 'U0f9557b09f1247e4de2bf3b1cb72679e'
   //     useEffect(() => {
@@ -108,22 +108,37 @@ const DetailNote = ({props}:Iprops) => {
   //         console.log(err);
   //       });
   // const [file,setFile] = useState('sdfasdfsasdfa')
-  const userId = props.id;
+  const noteId = props.id;
   const userName = props.username;
-//   const subjectId = ;
   const subjectName = props.subjectName;
   const teacherName = props.teacher;
-  const file = props.pdf
+  const file = props.pdf;
   const exam = props.exam;
   const year = props.year;
-  const likeConut = props.likes;
-  const viewConut = props.views;
+  const [likeCount,setLikeCount] = useState(Number(props.likes)); 
+  const viewCount = props.views;
   const desciption = props.description;
+  const likedId = props.likeArr;
+  const check = likedId.includes(noteId);
+  const [like, setLike] = useState(check);
+  console.log('check like', like);
+  const likeClikeHandler = ()=>{
+    if (like == false){
+        // putLike(noteId)
+        setLikeCount(likeCount+1)
+        setLike(true)
+    }
+    else{
+        setLikeCount(likeCount-1)
+        setLike(false)
+    }
+    
+  }
   return (
     <Container>
       <Wrapper className='glass'>
         <Top>
-          <iframe id='iframepdf' src={file}  scrolling='no' height='100%' width='100%'></iframe>
+          <iframe id='iframepdf' src={file} scrolling='no' height='100%' width='100%'></iframe>
         </Top>
         <Mid>
           <h1>{subjectName}</h1>
@@ -139,14 +154,13 @@ const DetailNote = ({props}:Iprops) => {
 
           <h3>{userName}</h3>
           <DivTag2>
-          <button className='button-28' role='button'>
-            LIKE ({likeConut})
-          </button>
-          <button className='button-28' role='button'>
-            VIEW ({likeConut})
-          </button>
+            <button className='button-28' role='button' onClick={likeClikeHandler}>
+              LIKE ({likeCount})
+            </button>
+            <button className='button-28' role='button'>
+              VIEW ({likeCount})
+            </button>
           </DivTag2>
-          
         </Mid>
         <Under>
           {/* <div ></div> */}
