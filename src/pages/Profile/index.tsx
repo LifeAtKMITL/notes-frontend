@@ -1,73 +1,52 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import './index.scss';
 import { CgNotes } from 'react-icons/cg';
 import { FaHeart } from 'react-icons/fa';
 import { BsFillEyeFill } from 'react-icons/bs';
 import { INote } from 'types/Note';
+import { IMyInfo, IData } from 'types/UserData';
+import { userContext } from 'App';
 import NoteCard from 'components/notecard';
 import axios from 'axios';
 
-//test rsc
-import temp from 'assets/test-resource/secret.jpg';
-import temp2 from 'assets/test-resource/temp2.jpeg';
-import data from 'assets/test-resource/data.json';
-
-interface IMyInfo {
-  userName: string;
-  userImage: string;
-  allLikes: number;
-  allNotes: number;
-  allViews: number;
-}
-interface IData {
-  userName: string;
-  userImage: string;
-  Notes: INote[];
-}
 interface IArrayNote {
   Notes: Array<INote>;
 }
 
 const ProfilePage = () => {
   // var
+  const myData = useContext(userContext);
   const [myInfo, setMyInfo] = useState<IMyInfo>({
-    allNotes: 0,
-    allLikes: 0,
-    allViews: 0,
-    userName: 'Yor',
-    userImage: temp,
+    allNotes: myData.allNotes,
+    allLikes: myData.allLikes,
+    allViews: myData.allViews,
+    userName: myData.userName,
+    userImage: myData.userImage,
   });
-  const [myNotes, setMyNotes] = useState<INote[]>([]);
+  const [myNotes, setMyNotes] = useState<INote[]>(myData.myNotes);
+  const [isDel, setIsDel] = useState(false);
 
   // func
   const loadMyNotes = async () => {
+    const token =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlUwZjk1NTdiMDlmMTI0N2U0ZGUyYmYzYjFjYjcyNjc5ZSIsImlhdCI6MTY2ODAwMTgyOSwiZXhwIjoxNjcwNTkzODI5fQ.hj-m3KVnEx6hwPjJGOqkAnBZIFocOB8B8Ey_j5uuoTA';
     const path = 'https://life-at-kmitl-backend-production.up.railway.app/sharenote/profile';
-    const res = await axios.get(path);
-
-    // Initial
-    let Notes: INote[] = res.data.Notes;
-    let userName = res.data.userName;
-    let userImage = res.data.userImage;
-
-    setMyNotes(Notes);
-
-    // MyInfo
-    let nubNotes = 0;
-    let nubLikes = 0;
-    let nubViews = 0;
-    Notes.map((note) => {
-      nubNotes += 1;
-      nubLikes += note.likeCount;
-      nubViews += note.viewCount;
+    const res = await axios.get(path, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
-    let temp: IMyInfo = {
-      allNotes: nubNotes,
-      allLikes: nubLikes,
-      allViews: nubViews,
-      userName: userName,
-      userImage: userImage,
-    };
-    setMyInfo(temp);
+    const Data: IData = res.data;
+
+    setMyNotes(Data.sharenotes);
+
+    setMyInfo({
+      allNotes: Data.collectionCount,
+      allLikes: Data.likeCount,
+      allViews: Data.totalViewCount,
+      userName: Data.username,
+      userImage: Data.image,
+    });
   };
 
   // Components
@@ -125,8 +104,8 @@ const ProfilePage = () => {
   };
 
   useEffect(() => {
-    // loadMyNotes();
-  }, []);
+    loadMyNotes();
+  }, [isDel]);
 
   // main
   return (

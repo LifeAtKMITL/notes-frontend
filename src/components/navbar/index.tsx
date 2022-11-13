@@ -5,7 +5,11 @@ import { FiMenu } from 'react-icons/fi';
 import { MdClose } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
-const Navbar = () => {
+interface INav {
+  userImage: string;
+}
+
+const Navbar = ({ userImage }: INav) => {
   const [openNav, setOpenNav] = useState<Boolean>(false);
 
   const handleClick = () => {
@@ -13,8 +17,6 @@ const Navbar = () => {
   };
 
   const navigate = useNavigate();
-
-  const userImage = logo;
 
   useEffect(() => {
     let handler = (e: MouseEvent) => {

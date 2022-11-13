@@ -1,5 +1,6 @@
 $background_color: #282828;
-$textcolor: #cecece;
+$textcolor: #ffffff;
+$sadColor: #cecece;
 .profile-page
 {
     background-color: #2f2f2f;
@@ -14,10 +15,11 @@ $textcolor: #cecece;
             display: flex;
             justify-content: center;
             img{
+
                 width: 115px;
                 height: 115px;
                 border-radius: 50%;
-                border: #ffffff solid 2px;
+                border: $textcolor solid 2px;
             }
         }
 
@@ -56,7 +58,7 @@ $textcolor: #cecece;
         gap: 10px;
 
         .notes{
-            background-color: $textcolor;
+            background-color: $sadColor;
             padding: 0 30px;
             border-radius: 5px;
             position: absolute;
