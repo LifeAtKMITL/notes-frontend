@@ -1,62 +1,104 @@
-import React from 'react';
-import temp from 'assets/test-resource/secret.jpg';
-import temp2 from 'assets/test-resource/temp2.jpeg';
+import React, { useEffect, useState, useContext } from 'react';
 import './index.scss';
 import { CgNotes } from 'react-icons/cg';
 import { FaHeart } from 'react-icons/fa';
-import { HiOutlineDownload } from 'react-icons/hi';
+import { BsFillEyeFill } from 'react-icons/bs';
+import { INote } from 'types/Note';
+import { IMyInfo, IData } from 'types/UserData';
+import { userContext } from 'App';
 import NoteCard from 'components/notecard';
+import axios from 'axios';
+
+interface IArrayNote {
+  Notes: Array<INote>;
+}
 
 const ProfilePage = () => {
-  return (
-    <div className='profile-page'>
+  // var
+  const myData = useContext(userContext);
+  const [myInfo, setMyInfo] = useState<IMyInfo>({
+    allNotes: myData.allNotes,
+    allLikes: myData.allLikes,
+    allViews: myData.allViews,
+    userName: myData.userName,
+    userImage: myData.userImage,
+  });
+  const [myNotes, setMyNotes] = useState<INote[]>(myData.myNotes);
+  const [isDel, setIsDel] = useState(false);
+
+  // func
+  const loadMyNotes = async () => {
+    const token =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlUwZjk1NTdiMDlmMTI0N2U0ZGUyYmYzYjFjYjcyNjc5ZSIsImlhdCI6MTY2ODAwMTgyOSwiZXhwIjoxNjcwNTkzODI5fQ.hj-m3KVnEx6hwPjJGOqkAnBZIFocOB8B8Ey_j5uuoTA';
+    const path = 'https://life-at-kmitl-backend-production.up.railway.app/sharenote/profile';
+    const res = await axios.get(path, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const Data: IData = res.data;
+
+    setMyNotes(Data.sharenotes);
+
+    setMyInfo({
+      allNotes: Data.collectionCount,
+      allLikes: Data.likeCount,
+      allViews: Data.totalViewCount,
+      userName: Data.username,
+      userImage: Data.image,
+    });
+  };
+
+  // Components
+
+  const MyNotes: React.FC<IArrayNote> = ({ Notes }) => {
+    // console.log(Notes);
+    return (
+      <div className='my-notes'>
+        <span className='notes'>My notes</span>
+        {Notes.map((note: INote) => {
+          return <NoteCard Note={note} />;
+        })}
+      </div>
+    );
+  };
+
+  const MyInfo = (MyInfo: IMyInfo) => {
+    return (
       <div className='head'>
         <div className='img-contain'>
-          <img src={temp} />
+          <img src={myInfo.userImage} />
         </div>
         <div className='info'>
-          <h2>Yor Forger</h2>
+          <h2>{myInfo.userName}</h2>
           <div className='collection'>
             <div>
               <CgNotes size={25} />
-              <p>1</p>
+              <p>{myInfo.allNotes}</p>
             </div>
             <div>
               <FaHeart size={25} />
-              <p>2</p>
+              <p>{myInfo.allLikes}</p>
             </div>
             <div>
-              <HiOutlineDownload size={25} />
-              <p>3</p>
+              <BsFillEyeFill size={25} />
+              <p>{myInfo.allViews}</p>
             </div>
           </div>
         </div>
       </div>
-      <div className='notes'>
-        <span className='my-notes'>My notes</span>
-        <NoteCard
-          subjectName='Software Architecture'
-          examination='Final'
-          academicYear='2022'
-          teacherName='Parinya Ekparinya'
-          userName='Yor Forger'
-          userPic={temp}
-          notePic={temp2}
-          noteLike={53}
-          noteDownload={71}
-        />
-        <NoteCard
-          subjectName='Software Architecture'
-          examination='Final'
-          academicYear='2022'
-          teacherName='Parinya Ekparinya'
-          userName='Yor Forger'
-          userPic={temp}
-          notePic={temp2}
-          noteLike={53}
-          noteDownload={71}
-        />
-      </div>
+    );
+  };
+
+  useEffect(() => {
+    loadMyNotes();
+  }, [isDel]);
+
+  // main
+  return (
+    <div className='profile-page'>
+      <MyInfo {...myInfo} />
+      <MyNotes Notes={myNotes} />
     </div>
   );
 };

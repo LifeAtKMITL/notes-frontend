@@ -1,23 +1,31 @@
+$background_color: #282828;
+$textcolor: #ffffff;
+$sadColor: #cecece;
 .profile-page
 {
+    background-color: #2f2f2f;
+    min-height: calc(100vh - 60px);
     .head{
         display: grid;
-        grid-template-columns: 3fr 4fr;
-        margin-top: 20px;
+        grid-template-columns: 1fr 1fr;
+        padding-top: 20px;
+        margin-bottom: 20px;
         height: 160px;
         .img-contain{
             display: flex;
             justify-content: center;
             img{
+
                 width: 115px;
                 height: 115px;
                 border-radius: 50%;
-                border: black solid 2px;
+                border: $textcolor solid 2px;
             }
         }
 
         .info{
             margin-top: 10px;
+            color: $textcolor;
             h2{
                 font-size: 24px;
             }
@@ -26,11 +34,11 @@
                 margin-left: 3px;
                 display: flex;
                 justify-content: space-between;
-                width: 140px;
+                width: 130px;
                 div{
                     p{
                         font-size: 14px;
-                        margin-top: -8px;
+                        margin-top: -5px;
                         text-align: center;
                     }
                 }
@@ -38,19 +46,19 @@
         }
     }
 
-    .notes{
+    .my-notes{
         position: relative;
-        border-radius: 30px 30px 0 0;
-        padding: 30px 0;
-        background-color: rgb(244, 244, 244);
+        background-color: $background_color;
         display: flex;
-        gap: 25px;
         flex-direction: column;
         align-items: center;
+        border-radius: 30px 30px 0 0;
+        padding: 40px 0;
         min-height: calc(100vh - 180px - 60px); // 100vh - (profile info + margin ) - navabar height
+        gap: 10px;
 
-        .my-notes{
-            background-color: rgb(215, 215, 215);
+        .notes{
+            background-color: $sadColor;
             padding: 0 30px;
             border-radius: 5px;
             position: absolute;

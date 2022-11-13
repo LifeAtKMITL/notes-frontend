@@ -5,7 +5,11 @@ import { FiMenu } from 'react-icons/fi';
 import { MdClose } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
-const Navbar = () => {
+interface INav {
+  userImage: string;
+}
+
+const Navbar = ({ userImage }: INav) => {
   const [openNav, setOpenNav] = useState<Boolean>(false);
 
   const handleClick = () => {
@@ -35,7 +39,7 @@ const Navbar = () => {
         )}
 
         <img src={logo} className='nav-logo' />
-        <img src={logo} className='nav-profile' onClick={() => navigate('/profile')} />
+        <img src={userImage} className='nav-profile' onClick={() => navigate('/profile')} />
       </div>
 
       {/* NavMenu */}

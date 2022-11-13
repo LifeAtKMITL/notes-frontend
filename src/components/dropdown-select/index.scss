@@ -1,6 +1,8 @@
-$ddsl_color :#efefef;
+$ddsl_color :#ffffff;
+
 
 .ddsl-container{
+    z-index: 1;
     width: fit-content;
     position: relative;
 }
@@ -12,7 +14,7 @@ $ddsl_color :#efefef;
         border: none;
         padding: 3px 0;
         cursor: pointer;
-        border-radius: 5px;
+        border-radius: 12px;
         width: 125px;
         font-size: 15.6px;
         font-weight: bold;
@@ -28,10 +30,12 @@ $ddsl_color :#efefef;
     
     .ddsl-menu-container{
         width: 100%;
-        height: max(180px);
-        background-color: rgba(239, 239, 239,0.85);
+        border-radius: 5px;
+        max-height: 180px;
+        background-color: rgba(201, 201, 201, 0.95);
         overflow: auto;
         position: absolute;
+        
     
         &.inactive{
             opacity: 0;

@@ -1,57 +1,49 @@
 import React from 'react';
 import './index.scss';
 import { FaGraduationCap, FaHeart } from 'react-icons/fa';
-import { HiOutlineDownload } from 'react-icons/hi';
+import { BsFillEyeFill } from 'react-icons/bs';
+import { INote } from 'types/Note';
+import { useNavigate } from 'react-router-dom';
 
-interface INote {
-  subjectName: string;
-  examination: string;
-  academicYear: string;
-  teacherName: string;
-  userName: string;
-  userPic: string;
-  notePic: string;
-  noteLike: number;
-  noteDownload: number;
+interface IProp {
+  Note: INote;
 }
 
-const NoteCard: React.FC<INote> = ({
-  subjectName,
-  examination,
-  academicYear,
-  teacherName,
-  userName,
-  userPic,
-  notePic,
-  noteLike,
-  noteDownload,
-}) => {
+const NoteCard: React.FC<IProp> = ({ Note }) => {
+  const navigate = useNavigate();
+  const toDetail = ({ Note }: IProp) => {
+    let a = Note.files[0].url.replace(/\//g, '-');
+
+    navigate(
+      `/notes-detail/${Note.subjectName}/${Note.exam}/${Note.year}/${Note.teachers}/${Note.userImage}/${Note.description}/${a}`,
+    );
+  };
   return (
-    <div className='card-container'>
+    <div className='card-container' onClick={() => toDetail({ Note })}>
       <div className='pic-box'>
-        <img src={notePic} />
+        <img src={Note.noteImage} />
       </div>
       <div className='info-box'>
-        <h3>{subjectName}</h3>
+        <h3>{Note.subjectName}</h3>
         <h3>
-          {examination} / {academicYear}
+          {Note.exam} / {Note.year}
         </h3>
         <div>
           <FaGraduationCap size={15} className='icon' />
-          <p>{teacherName}</p>
+          <p>{Note.teachers}</p>
         </div>
         <div>
           <p>By </p>
-          <img src={userPic} />
-          <p>{userName}</p>
+          <img src={Note.userImage} />
+          <p>{Note.userName}</p>
         </div>
         <div>
           <FaHeart size={15} className='icon' />
-          <p>({noteLike})</p>
+          <p>({Note.likeCount})</p>
         </div>
         <div>
-          <HiOutlineDownload size={15} className='icon' />
-          <p> ({noteDownload})</p>
+          <BsFillEyeFill size={15} className='icon' />
+          <p> ({Note.viewCount})</p>
         </div>
       </div>
     </div>

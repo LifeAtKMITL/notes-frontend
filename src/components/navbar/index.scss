@@ -1,5 +1,5 @@
-$maincolor: #172A6C;
-$dropdown_color: rgb(250, 235, 215,0.9);
+$maincolor: #131313;
+$dropdown_color: rgb(63,63,63,0.95);
 
 .nav-container{
     background-color: $maincolor;
@@ -18,10 +18,10 @@ $dropdown_color: rgb(250, 235, 215,0.9);
 
     .nav-profile{
         border-radius: 50%;
-        background-color: rgb(0, 0, 0);
         width: 40px;
         height: 40px;
         cursor: pointer;
+        border: #3f3f3f solid 0.1px;
     }
 
     .nav-logo{
@@ -29,6 +29,7 @@ $dropdown_color: rgb(250, 235, 215,0.9);
         width: 106px;
         scale: 1;
         position: relative;
+        object-fit: cover;
         left: 5px;
     }
 }
@@ -37,7 +38,7 @@ $dropdown_color: rgb(250, 235, 215,0.9);
 .nav-dropdown{
     background-color: $dropdown_color;
     position: absolute;
-    color: rgb(4, 4, 3);
+    color: rgb(255, 255, 255);
     border-radius: 5px;
     font-size: medium;
     font-weight: bold;

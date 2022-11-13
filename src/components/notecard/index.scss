@@ -1,32 +1,38 @@
+$card_color: #343434;
+$textcolor:#ffffff;
+// #3b3b3b
+
 .card-container{
     display: grid;
     grid-template-columns: 4fr 4fr;
     margin: 3px;
     border-radius: 10px;
-    background-color: rgb(255, 255, 255);
+    background-color: $card_color;
     cursor: pointer;
-    width: 340px;
+    width: 360px;
+    height: 210px;
     
     .pic-box{
-        height: 182px;
-        width: 153px;
+
         display: flex;
         justify-content: center;
         align-items: center;
 
         img{
             border-radius: 10px;
-            width: 98%;
-            height: 98%;
+            width: 162px;
+            height: 189px;
             object-fit: cover;
         }
     }
 
     .info-box{
-        margin-top: 10px;
+        margin-top: 15px;
+        margin-left: 8px;
+        color: $textcolor;
         div{
             display: flex;
-            margin-top: 6px;
+            margin-top: 7px;
         }
         h3{
             margin-right: 10px;
