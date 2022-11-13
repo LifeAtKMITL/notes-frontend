@@ -11,7 +11,10 @@ const Routes = () => {
     <Switch>
       <Route path='/' element={<HomePage />} />
       <Route path='/find-notes' element={<FindNotesPage />} />
-      <Route path='/notes-detail' element={<DetailNotesPage />} />
+      <Route
+        path='/notes-detail/:subjectName/:exam/:year/:teacher/:userImage/:description/:file'
+        element={<DetailNotesPage />}
+      />
       <Route path='/share-notes' element={<ShareNotesPage />} />
       <Route path='/profile' element={<ProfilePage />} />
     </Switch>
