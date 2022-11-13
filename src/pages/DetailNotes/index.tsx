@@ -1,7 +1,9 @@
+import DetailNote from 'components/detail-note';
 import React from 'react';
 
 const DetailNotesPage = () => {
-  return <div>DetailNotesPage</div>;
+  console.log('---h i---')
+  return <DetailNote/>;
 };
 
 export default DetailNotesPage;
