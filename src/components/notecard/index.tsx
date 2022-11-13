@@ -2,45 +2,48 @@ import React from 'react';
 import './index.scss';
 import { FaGraduationCap, FaHeart } from 'react-icons/fa';
 import { BsFillEyeFill } from 'react-icons/bs';
-import { INoteCard } from 'types/Note';
+import { INote } from 'types/Note';
+import { useNavigate } from 'react-router-dom';
 
-const NoteCard: React.FC<INoteCard> = ({
-  subjectName,
-  exam,
-  year,
-  teachers,
-  userName,
-  userImage,
-  noteImage,
-  likeCount,
-  viewCount,
-}) => {
+interface IProp {
+  Note: INote;
+}
+
+const NoteCard: React.FC<IProp> = ({ Note }) => {
+  const navigate = useNavigate();
+  const toDetail = ({ Note }: IProp) => {
+    let a = Note.files[0].url.replace(/\//g, '-');
+
+    navigate(
+      `/notes-detail/${Note.subjectName}/${Note.exam}/${Note.year}/${Note.teachers}/${Note.userImage}/${Note.description}/${a}`,
+    );
+  };
   return (
-    <div className='card-container'>
+    <div className='card-container' onClick={() => toDetail({ Note })}>
       <div className='pic-box'>
-        <img src={noteImage} />
+        <img src={Note.noteImage} />
       </div>
       <div className='info-box'>
-        <h3>{subjectName}</h3>
+        <h3>{Note.subjectName}</h3>
         <h3>
-          {exam} / {year}
+          {Note.exam} / {Note.year}
         </h3>
         <div>
           <FaGraduationCap size={15} className='icon' />
-          <p>{teachers}</p>
+          <p>{Note.teachers}</p>
         </div>
         <div>
           <p>By </p>
-          <img src={userImage} />
-          <p>{userName}</p>
+          <img src={Note.userImage} />
+          <p>{Note.userName}</p>
         </div>
         <div>
           <FaHeart size={15} className='icon' />
-          <p>({likeCount})</p>
+          <p>({Note.likeCount})</p>
         </div>
         <div>
           <BsFillEyeFill size={15} className='icon' />
-          <p> ({viewCount})</p>
+          <p> ({Note.viewCount})</p>
         </div>
       </div>
     </div>

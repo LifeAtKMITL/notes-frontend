@@ -57,20 +57,7 @@ const ProfilePage = () => {
       <div className='my-notes'>
         <span className='notes'>My notes</span>
         {Notes.map((note: INote) => {
-          return (
-            <NoteCard
-              subjectName={note.subjectName}
-              exam={note.exam}
-              year={note.year}
-              teachers={note.teachers[0]}
-              userName={note.userName || ''}
-              userImage={note.userImage || ''}
-              noteImage={note.noteImage || ''}
-              likeCount={note.likeCount}
-              viewCount={note.viewCount}
-              key={note._id}
-            />
-          );
+          return <NoteCard Note={note} />;
         })}
       </div>
     );
