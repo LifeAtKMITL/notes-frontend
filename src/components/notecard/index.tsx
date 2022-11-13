@@ -15,7 +15,7 @@ const NoteCard: React.FC<IProp> = ({ Note }) => {
     let a = Note.files[0].url.replace(/\//g, '-');
 
     navigate(
-      `/notes-detail/${Note.subjectName}/${Note.exam}/${Note.year}/${Note.teachers}/${Note.userImage}/${Note.description}/${a}`,
+      `/notes-detail/${Note.subjectName}/${Note.exam}/${Note.year}/${Note.teachers}/${Note.image}/${Note.description}/${a}`,
     );
   };
   return (
@@ -30,12 +30,12 @@ const NoteCard: React.FC<IProp> = ({ Note }) => {
         </h3>
         <div>
           <FaGraduationCap size={15} className='icon' />
-          <p>{Note.teachers}</p>
+          <p>{Note.teachers[0]}</p>
         </div>
         <div>
           <p>By </p>
-          <img src={Note.userImage} />
-          <p>{Note.userName}</p>
+          <img src={Note.image} />
+          <p>{Note.username}</p>
         </div>
         <div>
           <FaHeart size={15} className='icon' />
