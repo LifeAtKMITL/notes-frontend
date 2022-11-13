@@ -3,7 +3,7 @@ import './index.scss';
 import { CgNotes } from 'react-icons/cg';
 import { FaHeart } from 'react-icons/fa';
 import { BsFillEyeFill } from 'react-icons/bs';
-import { INote } from 'types/Note';
+import { INote, IShareNote } from 'types/Note';
 import { IMyInfo, IData } from 'types/UserData';
 import { userContext } from 'App';
 import NoteCard from 'components/notecard';
@@ -23,7 +23,7 @@ const ProfilePage = () => {
     userName: myData.userName,
     userImage: myData.userImage,
   });
-  const [myNotes, setMyNotes] = useState<INote[]>(myData.myNotes);
+  const [myNotes, setMyNotes] = useState<INote[]>([]);
   const [isDel, setIsDel] = useState(false);
 
   // func
@@ -38,8 +38,14 @@ const ProfilePage = () => {
     });
     const Data: IData = res.data;
 
-    setMyNotes(Data.sharenotes);
-
+    let collect: INote[] = [];
+    Data.sharenotes.map((n) => {
+      let note: INote = { ...n };
+      note.username = Data.username;
+      note.image = Data.image;
+      collect.push(note);
+    });
+    // console.log('collect = ', collect);
     setMyInfo({
       allNotes: Data.collectionCount,
       allLikes: Data.likeCount,
@@ -47,6 +53,7 @@ const ProfilePage = () => {
       userName: Data.username,
       userImage: Data.image,
     });
+    setMyNotes(collect);
   };
 
   // Components
@@ -57,7 +64,7 @@ const ProfilePage = () => {
       <div className='my-notes'>
         <span className='notes'>My notes</span>
         {Notes.map((note: INote) => {
-          return <NoteCard Note={note} />;
+          return <NoteCard Note={note} key={note._id} />;
         })}
       </div>
     );

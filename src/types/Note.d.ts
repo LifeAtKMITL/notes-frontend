@@ -10,8 +10,8 @@ export interface INote {
     sharenoteCollectionName: string;
     sharenoteCollectionNameVersion: string;
     noteImage?:string;
-    userImage?: string;
-    userName?: string;
+    image: string;
+    username: string;
     userId: string;
     viewCount: number;
     likeCount: number;
@@ -49,4 +49,30 @@ export interface INoteCard {
     viewCount: number;
     likeCount: number;
     _id?:string;
+}
+
+// Find NOte
+
+export interface IFindNote {
+    image: string;
+    sharenote: INote;
+    username: string;
+}
+
+export interface IShareNote {
+    subjectId: string;
+    subjectName: string;
+    teachers: Array<string>;
+    exam: string;
+    year: string;
+    description: string;
+    date: Date;
+    files: File;
+    sharenoteCollectionName?: string;
+    sharenoteCollectionNameVersion?: string;
+    noteImage:string;
+    userId: string;
+    viewCount: number;
+    likeCount: number;
+    _id:string;
 }

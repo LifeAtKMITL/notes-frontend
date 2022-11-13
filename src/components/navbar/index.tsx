@@ -25,7 +25,6 @@ const Navbar = ({ userImage }: INav) => {
       }
     };
     document.addEventListener('mousedown', handler);
-    console.log('ineffect');
   }, []);
 
   return (

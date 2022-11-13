@@ -5,11 +5,11 @@ import 'pages/FindNotes/index.scss';
 import { TbArrowsSort } from 'react-icons/tb';
 import { IoSearchOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
-import { INote } from 'types/Note';
+import { INote, IFindNote } from 'types/Note';
 import DropdownSelect from 'components/dropdown-select';
 import axios from 'axios';
 
-interface IArrayNote {
+interface IGenNote {
   Notes: Array<INote>;
 }
 
@@ -22,8 +22,18 @@ const FindNotesPage = () => {
     const path = 'https://life-at-kmitl-backend-production.up.railway.app/sharenote/';
     const res = await axios.get(path);
     console.log(res.data);
-    setAllNotes(res.data);
-    setNotes(res.data);
+    const Data = res.data;
+
+    let collect: INote[] = [];
+    Data.map((data: IFindNote) => {
+      let note: INote = { ...data.sharenote };
+      note.username = data.username;
+      note.image = data.image;
+      collect.push(note);
+    });
+    console.log('add to note = ', collect);
+    setAllNotes(collect);
+    setNotes(collect);
   };
   // Function
 
@@ -62,11 +72,11 @@ const FindNotesPage = () => {
       </div>
     );
   };
-  const GenerateNotes: React.FC<IArrayNote> = ({ Notes }) => {
+  const GenerateNotes: React.FC<IGenNote> = ({ Notes }) => {
     return (
       <div className='notes-container'>
         {Notes.map((note) => {
-          return <NoteCard Note={note} key={note._id} />;
+          return <NoteCard Note={note} key={Notes.indexOf(note)} />;
         })}
       </div>
     );
@@ -101,36 +111,38 @@ const FindNotesPage = () => {
   };
 
   // UseEffect
-  //search | filter
-  // useEffect(() => {
-  //   let temp: INote[] = [];
-  //   let filtExam = '';
-  //   let filtYear = '';
-  //   let textSearch = '';
-  //   allNotes.forEach((ele) => {
-  //     if (searchExam != 'Exam') {
-  //       filtExam = searchExam;
-  //     }
-  //     if (searchYear != 'Year') {
-  //       filtYear = searchYear;
-  //     }
-  //     if (textSearchRef.current != null) {
-  //       textSearch = textSearchRef.current.value;
-  //     }
+  // search | filter
+  useEffect(() => {
+    let temp: INote[] = [];
+    let filtExam = '';
+    let filtYear = '';
+    let textSearch = '';
+    allNotes.forEach((ele) => {
+      if (searchExam != 'Exam') {
+        filtExam = searchExam;
+      }
+      if (searchYear != 'Year') {
+        filtYear = searchYear;
+      }
+      if (textSearchRef.current != null) {
+        textSearch = textSearchRef.current.value;
+      }
 
-  //     try {
-  //       if (ele.year.includes(filtYear) &&
-  //       ele.exam.includes(filtExam) &&
-  //       ele.subjectName.toLowerCase().includes(textSearch.toLowerCase())) {
-  //         temp.push(ele);
-  //       }
-  //     } catch (error) {
-  //       console.log(ele);
-  //     }
-  //   });
+      try {
+        if (
+          ele.year.includes(filtYear) &&
+          ele.exam.includes(filtExam) &&
+          ele.subjectName.toLowerCase().includes(textSearch.toLowerCase())
+        ) {
+          temp.push(ele);
+        }
+      } catch (error) {
+        console.log(ele);
+      }
+    });
 
-  //   setNotes(temp);
-  // }, [searchExam, searchYear, isSearching]);
+    setNotes(temp);
+  }, [searchExam, searchYear, isSearching]);
 
   // sort
   useEffect(() => {
