@@ -48,7 +48,7 @@ const DetailNotesPage = () => {
 
   const collection = { ...collect } as IDetailNote;
 
-  return <DetailNote />;
+  return <DetailNote props={collection}/>;
 };
 
 export default DetailNotesPage;

@@ -4,10 +4,11 @@ import { getShareNote } from './getSharenote';
 import './index.css';
 
 const Container = styled.div`
+    color:white;
   height: 100%;
   width: 100%;
   padding: 0.5em;
-  background-color: #6d61616d;
+  background-color: #252525;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,12 +26,12 @@ const Wrapper = styled.div`
 const Top = styled.div`
   border-radius: 5px;
   padding: 1em;
-  border: 2px solid #000;
+  /* border: 2px solid #000; */
   display: flex;
   justify-content: center;
   align-items: center;
   align-content: center;
-  background-color: #ffffff;
+  background-color: #343434;
   height: 450px;
   width: 95%;
 `;
@@ -38,8 +39,8 @@ const Mid = styled.div`
   margin-top: 1em;
   padding: 1em;
   border-radius: 5px;
-  border: 2px solid #000;
-  background-color: #ffffff;
+  /* border: 2px solid #000; */
+  background-color: #343434;
   height: 10%;
   width: 100%;
   display: flex;
@@ -48,8 +49,8 @@ const Mid = styled.div`
 `;
 
 const Under = styled.div`
-  background-color: #ffffff;
-  border: 2px solid #000;
+  background-color: #343434;
+  /* border: 2px solid #000; */
   border-radius: 5px;
   height: 10%;
   width: 100%;
@@ -58,14 +59,39 @@ const Under = styled.div`
 `;
 const DivTag = styled.div`
   /* padding: 1em; */
-  background-color: #ffffff;
+  background-color: #343434;
   height: 10%;
   width: 100%;
   display: flex;
   justify-content: flex-start;
 `;
+const DivTag2 = styled.div`
+  /* padding: 1em; */
+  background-color: #343434;
+  height: 20%;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+`;
 
-const DetailNote = () => {
+interface IDetailNote {
+    id: string;
+    subjectName: string;
+    teacher: string;
+    exam: string;
+    year: string;
+    description: string;
+    username: string;
+    views: number;
+    likes: number;
+    pic: string;
+    pdf: string;
+    likeArr: string[];
+  }
+  interface Iprops{
+    props:IDetailNote
+}
+const DetailNote = ({props}:Iprops) => {
   // const [sharenote, setSharenote] = useState('');
   // const id:string = 'U0f9557b09f1247e4de2bf3b1cb72679e'
   //     useEffect(() => {
@@ -82,23 +108,22 @@ const DetailNote = () => {
   //         console.log(err);
   //       });
   // const [file,setFile] = useState('sdfasdfsasdfa')
-  const userId = '124hakfh23hjk';
-  const userName = 'sumet suansamran';
-  const subjectId = '102314';
-  const subjectName = 'data-com';
-  const teacherName = 'parinya ja';
-  const file =
-    'https://firebasestorage.googleapis.com/v0/b/lifekmitl.appspot.com/o/Images%2FU0f9557b09f1247e4de2bf3b1cb72679e%2FMEDITATION%20FOR%20LIFE%20DEVELOPMENT%2Ff9c83d91-0f41-42d3-b63e-2a0008929912?alt=media&token=4c0ade3d-d5d2-427d-bbba-18220d8cd151';
-  const exam = 'mid';
-  const year = '2001';
-  const likeConut = '10';
-  const viewConut = '12';
-  const desciption = 'gu write description pid';
+  const userId = props.id;
+  const userName = props.username;
+//   const subjectId = ;
+  const subjectName = props.subjectName;
+  const teacherName = props.teacher;
+  const file = props.pdf
+  const exam = props.exam;
+  const year = props.year;
+  const likeConut = props.likes;
+  const viewConut = props.views;
+  const desciption = props.description;
   return (
     <Container>
       <Wrapper className='glass'>
         <Top>
-          <iframe id='iframepdf' src={file} frameBorder='2' scrolling='no' height='100%' width='100%'></iframe>
+          <iframe id='iframepdf' src={file}  scrolling='no' height='100%' width='100%'></iframe>
         </Top>
         <Mid>
           <h1>{subjectName}</h1>
@@ -113,9 +138,15 @@ const DetailNote = () => {
           </DivTag>
 
           <h3>{userName}</h3>
+          <DivTag2>
           <button className='button-28' role='button'>
             LIKE ({likeConut})
           </button>
+          <button className='button-28' role='button'>
+            VIEW ({likeConut})
+          </button>
+          </DivTag2>
+          
         </Mid>
         <Under>
           {/* <div ></div> */}
