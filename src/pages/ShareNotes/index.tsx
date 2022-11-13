@@ -1,34 +1,28 @@
 import React, { useEffect, useRef, useState } from 'react';
 import 'pages/ShareNotes/index.scss';
 import DropdownSelect from 'components/dropdown-select';
+import { ISubject, IForm } from 'types/Form';
 import axios from 'axios';
 
 import temp from 'assets/images/newnote.png';
-
-interface ISubject {
-  subjectId: string;
-  name: string;
-}
-
-interface IForm {
-  subjectId: string;
-  subjectName: string;
-  teachers: string;
-  exam: string;
-  year: string;
-  description: string;
-  files: any;
-  sharenoteCollectionName: string;
-}
+import Loading from 'components/loading';
 
 const ShareNotesPage = () => {
-  // Form
-
+  // var
   const teacherNameRef = useRef<HTMLInputElement>(null);
   const decriptionRef = useRef<HTMLTextAreaElement>(null);
   const [files, setFiles] = useState<File>();
   const [loading, setLoading] = useState(false);
+  const [showSubjects, setShowSubjects] = useState<boolean>(false);
+  const [tosendSubjectId, setTosendSubjectId] = useState<string>('');
+  const [tosendSubjectName, setTosendSubjectName] = useState<string>('');
+  const [subjects, setSubjects] = useState<ISubject[]>([]);
 
+  // temp var
+  const token =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlUwZjk1NTdiMDlmMTI0N2U0ZGUyYmYzYjFjYjcyNjc5ZSIsImlhdCI6MTY2ODAwMTgyOSwiZXhwIjoxNjcwNTkzODI5fQ.hj-m3KVnEx6hwPjJGOqkAnBZIFocOB8B8Ey_j5uuoTA';
+
+  // Function
   const handleFile = (e: React.FormEvent<HTMLInputElement>) => {
     if (e.currentTarget.files != null) {
       setFiles(e.currentTarget.files[0]);
@@ -36,7 +30,6 @@ const ShareNotesPage = () => {
   };
 
   const handleSubmit = (e: React.FormEvent) => {
-    setLoading(true);
     e.preventDefault();
     let form: IForm = {
       subjectId: tosendSubjectId,
@@ -49,15 +42,24 @@ const ShareNotesPage = () => {
       sharenoteCollectionName: tosendSubjectName,
     };
 
-    if (!form.teachers) {
-      alert('teacher empty');
+    if (
+      !(
+        form.teachers &&
+        form.subjectName &&
+        form.exam != 'Exam' &&
+        form.year != 'Year' &&
+        form.files &&
+        form.description &&
+        form.subjectId
+      )
+    ) {
+      alert('Form is invalid  because some input is empty');
       return;
     }
     console.log(form);
+    setLoading(true);
     sendForm(form);
   };
-  const token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlUwZjk1NTdiMDlmMTI0N2U0ZGUyYmYzYjFjYjcyNjc5ZSIsImlhdCI6MTY2ODAwMTgyOSwiZXhwIjoxNjcwNTkzODI5fQ.hj-m3KVnEx6hwPjJGOqkAnBZIFocOB8B8Ey_j5uuoTA';
   const sendForm = async (form: IForm) => {
     try {
       const res = await axios.post('https://life-at-kmitl-backend-production.up.railway.app/sharenote/uploads', form, {
@@ -75,13 +77,6 @@ const ShareNotesPage = () => {
       console.log(error);
     }
   };
-
-  //Data to fill subjectId =>  subjectName
-  const [showSubjects, setShowSubjects] = useState<boolean>(false);
-  const [tosendSubjectId, setTosendSubjectId] = useState<string>('');
-  const [tosendSubjectName, setTosendSubjectName] = useState<string>('');
-
-  const [subjects, setSubjects] = useState<ISubject[]>([]);
 
   const loadSubjects = async () => {
     const res = await axios.get('https://life-at-kmitl-backend-production.up.railway.app/subject');
@@ -108,6 +103,7 @@ const ShareNotesPage = () => {
     }
   };
 
+  // Component
   const SubjectMenu: React.FC = () => {
     return (
       <div className='box'>
@@ -147,13 +143,11 @@ const ShareNotesPage = () => {
 
   useEffect(() => {
     loadSubjects();
-    console.log('ineffect');
   }, []);
 
-  console.log('rerender');
-
+  // Loading
   if (loading) {
-    return <div>loading...</div>;
+    return <Loading />;
   }
 
   return (
@@ -164,7 +158,13 @@ const ShareNotesPage = () => {
         </div>
         <div className='contain1'>
           <p>Subject ID</p>
-          <input type='text' name='subjectId' onChange={handleInputChange} value={`${tosendSubjectId}`} />
+          <input
+            type='text'
+            name='subjectId'
+            autoComplete='off'
+            onChange={handleInputChange}
+            value={`${tosendSubjectId}`}
+          />
           {showSubjects && <SubjectMenu />}
         </div>
         <div className='contain1'>
