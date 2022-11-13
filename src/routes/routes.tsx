@@ -11,10 +11,7 @@ const Routes = () => {
     <Switch>
       <Route path='/' element={<HomePage />} />
       <Route path='/find-notes' element={<FindNotesPage />} />
-      <Route
-        path='/notes-detail/:_id/:subjectName/:teachers/:exam/:year/:description/:username/:viewCount/:likeCount/:pic/:pdf'
-        element={<DetailNotesPage />}
-      />
+      <Route path='/notes-detail' element={<DetailNotesPage />} />
       <Route path='/share-notes' element={<ShareNotesPage />} />
       <Route path='/profile' element={<ProfilePage />} />
     </Switch>
@@ -22,3 +19,5 @@ const Routes = () => {
 };
 
 export default Routes;
+
+// :_id/:subjectName/:teachers/:exam/:year/:description/:username/:viewCount/:likeCount/:pic/:pdf
