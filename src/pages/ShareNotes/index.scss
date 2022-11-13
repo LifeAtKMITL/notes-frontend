@@ -1,8 +1,10 @@
 $textcolor:#ffffff;
 $highligh_color: #ffa113;
+$background: #282828;
+
 .sharenote-page{
 
-    background-color: #282828;
+    background-color: $background;
     .form{
         padding-top: 35px;
         margin: 0px 71px 0 71px;
@@ -61,13 +63,13 @@ $highligh_color: #ffa113;
                 background-color: rgb(233, 233, 233);
                 max-height: 120px;
                 overflow: auto;
-                border-radius: 0 0 5px 5px;
+                border-radius: 5px;
                 width: 242px;
                 position: absolute;
                 top:100%;
                 left: 50%;
                 transform: translateX(-50%);
-                margin-top: 2px;
+                margin-top: 4px;
                 z-index: 1;
 
                 .subject-menu{
@@ -130,4 +132,6 @@ $highligh_color: #ffa113;
         }
     
         }
+
+    
 }
