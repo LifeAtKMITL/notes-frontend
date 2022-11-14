@@ -3,7 +3,7 @@ import './index.scss';
 import { CgNotes } from 'react-icons/cg';
 import { FaHeart } from 'react-icons/fa';
 import { BsFillEyeFill } from 'react-icons/bs';
-import { INote, IShareNote } from 'types/Note';
+import { INote } from 'types/Note';
 import { IMyInfo, IData } from 'types/UserData';
 import { userContext } from 'App';
 import NoteCard from 'components/notecard';
@@ -45,7 +45,7 @@ const ProfilePage = () => {
       note.image = Data.image;
       collect.push(note);
     });
-    // console.log('collect = ', collect);
+    console.log('collect = ', collect);
     setMyInfo({
       allNotes: Data.collectionCount,
       allLikes: Data.likeCount,

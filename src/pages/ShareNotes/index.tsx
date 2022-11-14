@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import 'pages/ShareNotes/index.scss';
 import DropdownSelect from 'components/dropdown-select';
-import { ISubject, IForm } from 'types/Form';
+import { ISubject } from 'types/Form';
 import axios from 'axios';
 
 import temp from 'assets/images/newnote.png';
@@ -9,9 +9,11 @@ import Loading from 'components/loading';
 
 const ShareNotesPage = () => {
   // var
+  let formData = new FormData();
   const teacherNameRef = useRef<HTMLInputElement>(null);
   const decriptionRef = useRef<HTMLTextAreaElement>(null);
   const [files, setFiles] = useState<File>();
+  const [Cover, setCover] = useState<File>();
   const [loading, setLoading] = useState(false);
   const [showSubjects, setShowSubjects] = useState<boolean>(false);
   const [tosendSubjectId, setTosendSubjectId] = useState<string>('');
@@ -24,44 +26,69 @@ const ShareNotesPage = () => {
 
   // Function
   const handleFile = (e: React.FormEvent<HTMLInputElement>) => {
+    console.log(e.currentTarget.files);
+
     if (e.currentTarget.files != null) {
       setFiles(e.currentTarget.files[0]);
+      console.log('File');
+
+      // formData.append('file', e.currentTarget.files[0]);
+    }
+  };
+
+  const handleCover = (e: React.FormEvent<HTMLInputElement>) => {
+    console.log(e.currentTarget.files);
+
+    if (e.currentTarget.files != null) {
+      setCover(e.currentTarget.files[0]);
+
+      console.log('Cover');
+
+      // formData.append('file', e.currentTarget.files[0]);
     }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    let form: IForm = {
-      subjectId: tosendSubjectId,
-      subjectName: tosendSubjectName,
-      teachers: teacherNameRef.current?.value || '',
-      exam: tosendExam,
-      year: tosendYear,
-      description: decriptionRef.current?.value || '',
-      files: files,
-      sharenoteCollectionName: tosendSubjectName,
-    };
-
     if (
       !(
-        form.teachers &&
-        form.subjectName &&
-        form.exam != 'Exam' &&
-        form.year != 'Year' &&
-        form.files &&
-        form.description &&
-        form.subjectId
+        tosendSubjectId &&
+        tosendSubjectName &&
+        teacherNameRef.current?.value &&
+        tosendExam &&
+        tosendYear &&
+        decriptionRef.current?.value &&
+        tosendSubjectName &&
+        files &&
+        Cover
       )
     ) {
-      alert('Form is invalid  because some input is empty');
+      alert('Form is invalid');
       return;
     }
-    console.log(form);
+
+    formData.append('subjectId', tosendSubjectId);
+    formData.append('subjectName', tosendSubjectName);
+    formData.append('teachers', teacherNameRef.current?.value || '');
+    formData.append('exam', tosendExam);
+    formData.append('year', tosendYear);
+    formData.append('description', decriptionRef.current?.value || '');
+    formData.append('sharenoteCollectionName', tosendSubjectName);
+    formData.append('files', files as File);
+    formData.append('files', Cover as File);
+
+    console.log('formData = ', formData);
+
+    // Display FormData
+    // for (var pair of formData.entries()) {
+    //   console.log('x: ', pair[0] + ', ' + pair[1]);
+    // }
+
     setLoading(true);
-    sendForm(form);
+    sendForm(formData);
     setTosendSubjectId('');
   };
-  const sendForm = async (form: IForm) => {
+  const sendForm = async (form: any) => {
     try {
       const res = await axios.post('https://life-at-kmitl-backend-production.up.railway.app/sharenote/uploads', form, {
         headers: {
@@ -70,13 +97,13 @@ const ShareNotesPage = () => {
         },
       });
       console.log(res);
-      setLoading(false);
       if (res.data == 400) {
         alert('invalid');
       }
     } catch (error: any) {
       console.log(error);
     }
+    setLoading(false);
   };
 
   const loadSubjects = async () => {
@@ -202,6 +229,16 @@ const ShareNotesPage = () => {
             id='file'
             onChange={(e) => {
               handleFile(e);
+            }}
+          />
+        </div>
+        <div className='file-contain'>
+          <p>Cover Image (Optional)</p>
+          <input
+            type='file'
+            id='file'
+            onChange={(e) => {
+              handleCover(e);
             }}
           />
         </div>
