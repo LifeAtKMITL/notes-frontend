@@ -30,27 +30,6 @@ export interface IFile{
     url:string;
 }
 
-export interface INoteCard {
-
-    subjectId?: string;
-    subjectName: string;
-    teachers: Array<string>;
-    exam: string;
-    year: string;
-    description?: string;
-    date?: Date;
-    files?: File;
-    sharenoteCollectionName?: string;
-    sharenoteCollectionNameVersion?: string;
-    noteImage:string;
-    userImage: string;
-    userName: string;
-    userId?: string;
-    viewCount: number;
-    likeCount: number;
-    _id?:string;
-}
-
 // Find NOte
 
 export interface IFindNote {

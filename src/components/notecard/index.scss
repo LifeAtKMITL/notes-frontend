@@ -2,58 +2,81 @@ $card_color: #343434;
 $textcolor:#ffffff;
 // #3b3b3b
 
-.card-container{
-    display: grid;
-    grid-template-columns: 4fr 4fr;
-    margin: 3px;
-    border-radius: 10px;
-    background-color: $card_color;
-    cursor: pointer;
-    width: 360px;
-    height: 210px;
-    
-    .pic-box{
+.comp{
+    position: relative;
+    span{
+        position: absolute;
+        background-color: rgb(236, 100, 4);
+        right: -2px;
+        top: -4px;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        z-index: 2;
+        display: grid;
+        place-items: center;
+        cursor: pointer;
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        img{
-            border-radius: 10px;
-            width: 162px;
-            height: 189px;
-            object-fit: cover;
+        .bar
+        {
+            width: 14px;
+            height: 4.5px;
+            background-color: #ffffff;
         }
     }
+    .card-container{
+        display: grid;
+        grid-template-columns: 4fr 4fr;
+        margin: 3px;
+        border-radius: 10px;
+        background-color: $card_color;
+        cursor: pointer;
+        width: 360px;
+        height: 210px;
+        
+        .pic-box{
 
-    .info-box{
-        margin-top: 15px;
-        margin-left: 8px;
-        color: $textcolor;
-        div{
             display: flex;
-            margin-top: 7px;
-        }
-        h3{
-            margin-right: 10px;
-            font-size: 15px;
-        }
-        p{
-            font-size: 10px;
-        }
-        .icon{
-            margin-top: 0px;
-            margin-right: 5px;
-        }
-        .user{
+            justify-content: center;
+            align-items: center;
+
             img{
-                position: relative;
-                border-radius: 50%;
-                width: 20px;
-                height: 20px;
-                margin: 0 5px 0 5px;
-                border: 1px solid black;
-                bottom: 3px;
+                border-radius: 10px;
+                width: 162px;
+                height: 189px;
+                object-fit: cover;
+            }
+        }
+
+        .info-box{
+            margin-top: 15px;
+            margin-left: 8px;
+            color: $textcolor;
+            div{
+                display: flex;
+                margin-top: 7px;
+            }
+            h3{
+                margin-right: 10px;
+                font-size: 15px;
+            }
+            p{
+                font-size: 10px;
+            }
+            .icon{
+                margin-top: 0px;
+                margin-right: 5px;
+            }
+            .user{
+                img{
+                    position: relative;
+                    border-radius: 50%;
+                    width: 20px;
+                    height: 20px;
+                    margin: 0 5px 0 5px;
+                    border: 1px solid black;
+                    bottom: 3px;
+                }
             }
         }
     }
