@@ -5,7 +5,8 @@ import { BsFillEyeFill } from 'react-icons/bs';
 import { INote } from 'types/Note';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axiosInstance from 'utils/axios';
-import { CoverImg } from 'exports/Cover';
+
+import { CoverImg } from 'exports/random';
 
 interface IProp {
   Note: INote;
@@ -14,8 +15,8 @@ interface IProp {
 const NoteCard: React.FC<IProp> = ({ Note }) => {
   const location = useLocation();
   const navigate = useNavigate();
-
-  let Cover = CoverImg();
+  let rand = Math.floor(Math.random() * 10);
+  let Cover = CoverImg[rand];
   console.log(Cover);
 
   if (Note.files.length > 1) {
