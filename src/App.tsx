@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Loading from 'components/loading';
 import Navbar from 'components/navbar';
+import Welcome from 'components/welcome';
 import React, { useEffect, useState } from 'react';
 import Routes from 'routes/routes';
 import { IData, IMyData } from 'types/UserData';
@@ -47,7 +48,7 @@ function App() {
   };
   loadMyData();
   if (!ready) {
-    return <Loading />;
+    return <Welcome />;
   }
   console.log('render app');
 

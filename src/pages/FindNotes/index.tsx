@@ -130,7 +130,9 @@ const FindNotesPage = () => {
         if (
           ele.year.includes(filtYear) &&
           ele.exam.includes(filtExam) &&
-          ele.subjectName.toLowerCase().includes(textSearch.toLowerCase())
+          (ele.subjectName.toLowerCase().includes(textSearch.toLowerCase()) ||
+            ele.subjectId.toLowerCase().includes(textSearch.toLowerCase()) ||
+            ele.username.toLowerCase().includes(textSearch.toLowerCase()))
         ) {
           temp.push(ele);
         }

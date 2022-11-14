@@ -8,14 +8,26 @@ $background: #282828;
     place-items: center;
     padding-bottom: 60px;
     height: calc(100vh - 60px);
+    // width: 100vw;
+    // position: absolute;
 
+    @keyframes blink {
+      50% {
+        opacity: 0.5;
+      }
+      80% {
+        opacity: 1;
+      }
+    }
     .label{
         position: absolute;
         top: -50px;
-        left: 50%;
+        left: 55%;
         transform: translateX(-50%);
         color: $textcolor;
-        font-size: 20px;
+        font-size: 25px;
+        font-weight: bold;
+        animation: blink 1s linear infinite;
     }
 
     .lds-dual-ring {
