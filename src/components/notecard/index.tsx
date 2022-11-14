@@ -15,11 +15,12 @@ const NoteCard: React.FC<IProp> = ({ Note }) => {
   const toDetail = ({ Note }: IProp) => {
     // console.log('pdf before = ', Note.files[0].url);
     let pdf = Note.files[0].url.replaceAll('%2f', '-=');
+    let cover = Note.noteImage || '';
     // console.log('pdf after = ', pdf);
 
     let pic = Note.image;
     navigate(
-      `/notes-detail?id=${Note._id}&subjectName=${Note.subjectName}&teacher=${Note.teachers[0]}&exam=${Note.exam}&year=${Note.year}&description=${Note.description}&username=${Note.username}&views=${Note.viewCount}&likes=${Note.likeCount}&pic=${pic}&pdf=${pdf}`,
+      `/notes-detail?id=${Note._id}&subjectName=${Note.subjectName}&teacher=${Note.teachers[0]}&exam=${Note.exam}&year=${Note.year}&description=${Note.description}&username=${Note.username}&views=${Note.viewCount}&likes=${Note.likeCount}&pic=${pic}&pdf=${pdf}&cover=${cover}`,
     );
   };
 

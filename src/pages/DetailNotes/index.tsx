@@ -31,6 +31,7 @@ const DetailNotesPage = () => {
   const [searchParams] = useSearchParams();
   for (const entry of searchParams.entries()) {
     let [param, value] = entry;
+    console.log(entry);
     if (param === 'token') {
       tempToken = value;
       break;
@@ -39,11 +40,18 @@ const DetailNotesPage = () => {
       let temp = value.slice(0, 74);
       let sl = value.slice(74).replaceAll('/', '%2F').replaceAll(' ', '%20');
       collect[param] = temp + sl;
+    } else if (param === 'cover') {
+      if (value != '') {
+        let temp = value.slice(0, 74);
+        let sl = value.slice(74).replaceAll('/', '%2F').replaceAll(' ', '%20');
+        collect[param] = temp + sl;
+      }
     } else {
       collect[param] = value;
     }
   }
   collect.pdf = collect.pdf + '&token=' + tempToken;
+  collect.cover = collect.cover + '&token=' + tempToken;
   collect.likeArr = likedArr;
 
   const collection = { ...collect } as IDetailNote;
