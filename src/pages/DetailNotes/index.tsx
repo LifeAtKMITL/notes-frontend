@@ -15,7 +15,7 @@ interface IDetailNote {
   likes: number;
   pic: string;
   pdf: string;
-  likeArr: string[];
+  likeArr: string[]; 
 }
 
 interface Icopy {
@@ -31,7 +31,7 @@ const DetailNotesPage = () => {
   const [searchParams] = useSearchParams();
   for (const entry of searchParams.entries()) {
     let [param, value] = entry;
-    console.log(entry);
+    // console.log(entry);
     if (param === 'token') {
       tempToken = value;
       break;
@@ -56,7 +56,7 @@ const DetailNotesPage = () => {
 
   const collection = { ...collect } as IDetailNote;
 
-  return <DetailNote />;
+  return <DetailNote props={collection}/>;
 };
 
 export default DetailNotesPage;

@@ -7,3 +7,10 @@ export const getShareNote = async (id:string) => {
     },
   });
 };
+export const putLike = async (sharenoteId:string) => {
+  return await axios.put(`https://life-at-kmitl-backend-production.up.railway.app/sharenote/like/${sharenoteId}`,{},{
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+  });
+};
