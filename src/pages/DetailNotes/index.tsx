@@ -31,7 +31,7 @@ const DetailNotesPage = () => {
   const [searchParams] = useSearchParams();
   for (const entry of searchParams.entries()) {
     let [param, value] = entry;
-    console.log(entry);
+    // console.log(entry);
     if (param === 'token') {
       tempToken = value;
       break;

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getShareNote, putLike } from './getSharenote';
-import './index.css';
+import './index.scss';
 import { FaGraduationCap, FaHeart } from 'react-icons/fa';
 import { BsFillEyeFill } from 'react-icons/bs';
+import axios from 'axios';
 const Container = styled.div`
-color: white;
+  color: white;
   height: 100%;
   width: 100%;
   padding: 0.5em;
@@ -68,12 +69,16 @@ const DivTag = styled.div`
 `;
 const DivTag2 = styled.div`
   /* padding: 1em; */
-  margin-top:0.3em;
+  align-items: center;
+  margin-top: 0.3em;
   background-color: #343434;
   height: 10%;
   width: 100%;
   display: flex;
   justify-content: flex-start;
+`;
+const Icon = styled.div`
+  margin: 0.4em;
 `;
 interface IDetailNote {
   id: string;
@@ -92,7 +97,7 @@ interface IDetailNote {
 interface Iprops {
   props: IDetailNote;
 }
-const DetailNote = ({props}:Iprops) => {
+const DetailNote = ({ props }: Iprops) => {
   const noteId = props.id;
   const userName = props.username;
   const subjectName = props.subjectName;
@@ -100,43 +105,102 @@ const DetailNote = ({props}:Iprops) => {
   const file = props.pdf;
   const exam = props.exam;
   const year = props.year;
-  const [likeCount,setLikeCount] = useState(Number(props.likes)); 
+  const img = props.pic;
+  const [likeCount, setLikeCount] = useState(Number(props.likes));
   const viewCount = props.views;
   const desciption = props.description;
-  const likedId = props.likeArr;
-  const check = likedId.includes(noteId);
-  const [like, setLike] = useState(check);
-  console.log('likedId', likedId);
-  const likeClikeHandler = ()=>{
-    console.log(noteId)
-    if (like == false){
-        putLike(noteId).then(res => {
-            console.log(res);
-            console.log('PASS');
-          })
-          .catch(err => {
-            console.log(err);
-          });
-        setLikeCount(likeCount+1)
-        setLike(true)
+  const [likedId, setLikedId] = useState<string[]>([]);
+  const [likeStr, setLikeStr] = useState('');
+  const [like, setLike] = useState(false);
+
+  const loadMyData = async () => {
+    try {
+      const token =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlUwZjk1NTdiMDlmMTI0N2U0ZGUyYmYzYjFjYjcyNjc5ZSIsImlhdCI6MTY2ODAwMTgyOSwiZXhwIjoxNjcwNTkzODI5fQ.hj-m3KVnEx6hwPjJGOqkAnBZIFocOB8B8Ey_j5uuoTA';
+      const path = 'https://life-at-kmitl-backend-production.up.railway.app/sharenote/profile';
+
+      return await axios.get(path, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } catch (error) {
+      console.log(error);
     }
-    else{
-        setLikeCount(likeCount-1)
-        setLike(false)
+  };
+  useEffect(() => {
+    loadMyData()
+      .then((res) => {
+        const data = res?.data;
+        setLikedId(data.likedNotes);
+        if (data.likedNotes.includes(noteId)) {
+          setLike(true);
+          setLikeStr('UNLIKE');
+        } else {
+          setLike(false);
+          setLikeStr('LIKE');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  const likeClikeHandler = () => {
+    if (like === false) {
+      setLikeCount(likeCount + 1);
+      setLikeStr('UNLIKE');
+      setLike(true);
+      putLike(noteId)
+        .then((res) => {
+          console.log(res);
+          console.log('+1');
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      setLikeCount(likeCount - 1);
+      setLike(false);
+      setLikeStr('LIKE');
+      putLike(noteId)
+        .then((res) => {
+          // console.log(res);
+          console.log('-1');
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-    
-  }
+  };
   return (
     <Container>
       <Wrapper className='glass'>
         <Top>
-          <iframe id='iframepdf' src={file}   frameBorder='2' scrolling='no' height='100%' width='100%'></iframe>
+          <iframe id='iframepdf' src={file} frameBorder='2' scrolling='no' height='100%' width='100%'></iframe>
         </Top>
         <Mid>
           <h1>{subjectName}</h1>
-          <DivTag2><FaGraduationCap></FaGraduationCap><h3>{teacherName}</h3></DivTag2>
-          
-          <h3>{userName}</h3>
+          <DivTag2>
+            <Icon>
+              <BsFillEyeFill></BsFillEyeFill>
+            </Icon>
+            ({viewCount})
+          </DivTag2>
+
+          <DivTag2>
+            <Icon>
+              <FaGraduationCap></FaGraduationCap>
+            </Icon>
+            <h3>{teacherName}</h3>
+          </DivTag2>
+          <DivTag2>
+            <h3>by</h3>
+            <div className='img-contain'>
+              <img className='imgg' src={img} />
+            </div>
+            <h3>{userName} </h3>
+          </DivTag2>
+
           <DivTag2>
             <button className='button-12' role='button'>
               {exam}
@@ -144,21 +208,14 @@ const DetailNote = ({props}:Iprops) => {
             <button className='button-12' role='button'>
               {year}
             </button>
-          </DivTag2>
-          <DivTag2>
-          <button className='button-28' role='button' onClick={likeClikeHandler}>
-          <FaHeart></FaHeart>
-            LIKE ({likeCount})
-          </button>
-          <button className='button-28' role='button' onClick={likeClikeHandler}>
-          <BsFillEyeFill></BsFillEyeFill>
-            VIEW ({viewCount})
-          </button>
+            <button className='button-28' role='button' onClick={likeClikeHandler}>
+              {likeStr} ({likeCount})
+            </button>
           </DivTag2>
         </Mid>
         <Under>
-          <p>Description : </p>
-          <p>{desciption}</p>
+          <h2>- Description -</h2>
+          <h4>{desciption}</h4>
         </Under>
       </Wrapper>
     </Container>
