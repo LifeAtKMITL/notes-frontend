@@ -5,6 +5,7 @@ import Welcome from 'components/welcome';
 import React, { useEffect, useState } from 'react';
 import Routes from 'routes/routes';
 import { IData, IMyData } from 'types/UserData';
+import axiosInstance from 'utils/axios';
 
 const defMydata = {
   userId: '',
@@ -25,9 +26,9 @@ function App() {
     try {
       const token =
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlUwZjk1NTdiMDlmMTI0N2U0ZGUyYmYzYjFjYjcyNjc5ZSIsImlhdCI6MTY2ODAwMTgyOSwiZXhwIjoxNjcwNTkzODI5fQ.hj-m3KVnEx6hwPjJGOqkAnBZIFocOB8B8Ey_j5uuoTA';
-      const path = 'https://life-at-kmitl-backend-production.up.railway.app/sharenote/profile';
+      const path = '/sharenote/profile';
 
-      const res = await axios.get(path, {
+      const res = await axiosInstance.get(path, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

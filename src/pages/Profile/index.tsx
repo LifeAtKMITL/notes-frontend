@@ -8,6 +8,7 @@ import { IMyInfo, IData } from 'types/UserData';
 import { userContext } from 'App';
 import NoteCard from 'components/notecard';
 import axios from 'axios';
+import axiosInstance from 'utils/axios';
 
 interface IArrayNote {
   Notes: Array<INote>;
@@ -30,8 +31,8 @@ const ProfilePage = () => {
   const loadMyNotes = async () => {
     const token =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlUwZjk1NTdiMDlmMTI0N2U0ZGUyYmYzYjFjYjcyNjc5ZSIsImlhdCI6MTY2ODAwMTgyOSwiZXhwIjoxNjcwNTkzODI5fQ.hj-m3KVnEx6hwPjJGOqkAnBZIFocOB8B8Ey_j5uuoTA';
-    const path = 'https://life-at-kmitl-backend-production.up.railway.app/sharenote/profile';
-    const res = await axios.get(path, {
+    const path = '/sharenote/profile';
+    const res = await axiosInstance.get(path, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

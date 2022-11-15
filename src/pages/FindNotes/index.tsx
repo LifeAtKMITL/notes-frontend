@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { INote, IFindNote } from 'types/Note';
 import DropdownSelect from 'components/dropdown-select';
 import axios from 'axios';
+import axiosInstance from 'utils/axios';
 
 interface IGenNote {
   Notes: Array<INote>;
@@ -19,8 +20,8 @@ const FindNotesPage = () => {
   const navigate = useNavigate();
 
   const loadMyNotes = async () => {
-    const path = 'https://life-at-kmitl-backend-production.up.railway.app/sharenote/';
-    const res = await axios.get(path);
+    const path = '/sharenote/';
+    const res = await axiosInstance.get(path);
     const Data = res.data;
 
     let collect: INote[] = [];

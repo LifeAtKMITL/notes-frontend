@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import 'pages/ShareNotes/index.scss';
 import DropdownSelect from 'components/dropdown-select';
 import { ISubject } from 'types/Form';
-import axios from 'axios';
 
 import temp from 'assets/images/newnote.png';
 import Loading from 'components/loading';
+import axiosInstance from 'utils/axios';
 
 const ShareNotesPage = () => {
   // var
@@ -90,7 +90,7 @@ const ShareNotesPage = () => {
   };
   const sendForm = async (form: any) => {
     try {
-      const res = await axios.post('https://life-at-kmitl-backend-production.up.railway.app/sharenote/uploads', form, {
+      const res = await axiosInstance.post('/sharenote/uploads', form, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
@@ -107,7 +107,7 @@ const ShareNotesPage = () => {
   };
 
   const loadSubjects = async () => {
-    const res = await axios.get('https://life-at-kmitl-backend-production.up.railway.app/subject');
+    const res = await axiosInstance.get('/subject');
     setSubjects(res.data);
   };
 
