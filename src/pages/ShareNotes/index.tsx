@@ -20,10 +20,6 @@ const ShareNotesPage = () => {
   const [tosendSubjectName, setTosendSubjectName] = useState<string>('');
   const [subjects, setSubjects] = useState<ISubject[]>([]);
 
-  // temp var
-  // const token =
-  //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlUwZjk1NTdiMDlmMTI0N2U0ZGUyYmYzYjFjYjcyNjc5ZSIsImlhdCI6MTY2ODAwMTgyOSwiZXhwIjoxNjcwNTkzODI5fQ.hj-m3KVnEx6hwPjJGOqkAnBZIFocOB8B8Ey_j5uuoTA';
-
   // Function
   const handleFile = (e: React.FormEvent<HTMLInputElement>) => {
     console.log(e.currentTarget.files);
@@ -92,7 +88,6 @@ const ShareNotesPage = () => {
     try {
       const res = await axiosInstance.post('/sharenote/uploads', form, {
         headers: {
-          // Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
         },
       });

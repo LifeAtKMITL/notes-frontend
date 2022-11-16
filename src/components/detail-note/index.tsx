@@ -115,15 +115,9 @@ const DetailNote = ({ props }: Iprops) => {
 
   const loadMyData = async () => {
     try {
-      // const token =
-      //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlUwZjk1NTdiMDlmMTI0N2U0ZGUyYmYzYjFjYjcyNjc5ZSIsImlhdCI6MTY2ODAwMTgyOSwiZXhwIjoxNjcwNTkzODI5fQ.hj-m3KVnEx6hwPjJGOqkAnBZIFocOB8B8Ey_j5uuoTA';
       const path = '/sharenote/profile';
 
-      return await axiosInstance.get(path, {
-        // headers: {
-        //   Authorization: `Bearer ${token}`,
-        // },
-      });
+      return await axiosInstance.get(path, {});
     } catch (error) {
       console.log(error);
     }
