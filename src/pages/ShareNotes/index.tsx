@@ -55,8 +55,7 @@ const ShareNotesPage = () => {
         tosendYear &&
         decriptionRef.current?.value &&
         tosendSubjectName &&
-        files &&
-        Cover
+        files
       )
     ) {
       alert('Form is invalid');
@@ -222,6 +221,7 @@ const ShareNotesPage = () => {
           <input
             type='file'
             id='file'
+            accept='application/pdf'
             onChange={(e) => {
               handleFile(e);
             }}
