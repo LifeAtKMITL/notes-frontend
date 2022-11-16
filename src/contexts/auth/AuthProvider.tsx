@@ -13,7 +13,7 @@ interface IToken {
 
 const AuthProvider = ({ children }: IAuthProvider): JSX.Element => {
   const [loadingToken, setLoadingToken] = useState(true);
-  const { isLoggedIn, isReady, liff } = useLiff();
+  const { error, isLoggedIn, isReady, liff } = useLiff();
 
   useEffect(() => {
     if (!isLoggedIn) return;
@@ -41,9 +41,14 @@ const AuthProvider = ({ children }: IAuthProvider): JSX.Element => {
       });
       return response.data;
     } catch (error) {
+      alert('login error');
       return null;
     }
   };
+
+  useEffect(() => {
+    alert('liff error');
+  }, [error]);
 
   if (!isReady || loadingToken) return <Loading />;
 
