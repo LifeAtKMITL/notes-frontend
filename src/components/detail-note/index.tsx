@@ -170,7 +170,7 @@ const DetailNote = ({ props }: Iprops) => {
     <Container>
       <Wrapper className='glass'>
         <Top>
-      <embed id='iframepdf' src={file} width='100%' height='100%'></embed>
+        <iframe id='iframepdf' src={file} frameBorder='2' scrolling='yes' height='100%' width='100%' allowFullScreen allowTransparency></iframe>
         </Top>
         <Mid>
           <h1>{subjectName}</h1>
