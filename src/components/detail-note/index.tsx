@@ -5,6 +5,7 @@ import './index.scss';
 import { FaGraduationCap, FaHeart } from 'react-icons/fa';
 import { BsFillEyeFill } from 'react-icons/bs';
 import axiosInstance from 'axios';
+import { useLiff } from 'react-liff';
 const Container = styled.div`
   color: white;
   height: 100%;
@@ -98,6 +99,7 @@ interface Iprops {
   props: IDetailNote;
 }
 const DetailNote = ({ props }: Iprops) => {
+  const { liff } = useLiff();
   const noteId = props.id;
   const userName = props.username;
   const subjectName = props.subjectName;
@@ -113,6 +115,12 @@ const DetailNote = ({ props }: Iprops) => {
   const [likeStr, setLikeStr] = useState('');
   const [like, setLike] = useState(false);
 
+  const dowloadPdf = () => {
+    liff.openWindow({
+      url:file,
+      external:true
+    })
+  };
   const loadMyData = async () => {
     try {
       const path = '/sharenote/profile';
@@ -168,11 +176,20 @@ const DetailNote = ({ props }: Iprops) => {
   };
   return (
     <Container>
-      <h3>Open a PDF file <a href={file}>example</a>.</h3>
+      <h3>
+        Open a PDF file <button onClick={dowloadPdf}>click here</button>.
+      </h3>
 
       <Wrapper className='glass'>
         <Top>
-        <iframe id='iframepdf' src={`${file}#view=fitH`} frameBorder='2' scrolling='yes' height='100%' width='100%'></iframe>
+          <iframe
+            id='iframepdf'
+            src={`${file}#view=fitH`}
+            frameBorder='2'
+            scrolling='yes'
+            height='100%'
+            width='100%'
+          ></iframe>
         </Top>
         <Mid>
           <h1>{subjectName}</h1>
