@@ -4,7 +4,7 @@ import { getShareNote, putLike } from './getSharenote';
 import './index.scss';
 import { FaGraduationCap, FaHeart } from 'react-icons/fa';
 import { BsFillEyeFill } from 'react-icons/bs';
-import axios from 'axios';
+import axiosInstance from 'axios';
 const Container = styled.div`
   color: white;
   height: 100%;
@@ -115,14 +115,14 @@ const DetailNote = ({ props }: Iprops) => {
 
   const loadMyData = async () => {
     try {
-      const token =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlUwZjk1NTdiMDlmMTI0N2U0ZGUyYmYzYjFjYjcyNjc5ZSIsImlhdCI6MTY2ODAwMTgyOSwiZXhwIjoxNjcwNTkzODI5fQ.hj-m3KVnEx6hwPjJGOqkAnBZIFocOB8B8Ey_j5uuoTA';
-      const path = 'https://life-at-kmitl-backend-production.up.railway.app/sharenote/profile';
+      // const token =
+      //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlUwZjk1NTdiMDlmMTI0N2U0ZGUyYmYzYjFjYjcyNjc5ZSIsImlhdCI6MTY2ODAwMTgyOSwiZXhwIjoxNjcwNTkzODI5fQ.hj-m3KVnEx6hwPjJGOqkAnBZIFocOB8B8Ey_j5uuoTA';
+      const path = '/sharenote/profile';
 
-      return await axios.get(path, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      return await axiosInstance.get(path, {
+        // headers: {
+        //   Authorization: `Bearer ${token}`,
+        // },
       });
     } catch (error) {
       console.log(error);
