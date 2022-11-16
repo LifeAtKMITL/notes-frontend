@@ -16,8 +16,8 @@ const Container = styled.div`
   align-items: center;
 `;
 const Wrapper = styled.div`
-  margin: 0.5em;
-  padding: 0.5em;
+  margin: 0.2em;
+  padding: 0.2em;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,7 +27,7 @@ const Wrapper = styled.div`
 `;
 const Top = styled.div`
   border-radius: 5px;
-  padding: 1em;
+  /* padding: em; */
   border: 2px solid #000;
   display: flex;
   justify-content: center;
