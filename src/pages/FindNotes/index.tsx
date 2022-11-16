@@ -7,7 +7,6 @@ import { IoSearchOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 import { INote, IFindNote } from 'types/Note';
 import DropdownSelect from 'components/dropdown-select';
-import axios from 'axios';
 import axiosInstance from 'utils/axios';
 
 interface IGenNote {
