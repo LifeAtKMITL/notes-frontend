@@ -25,7 +25,11 @@ const ShareNotesPage = () => {
     console.log(e.currentTarget.files);
 
     if (e.currentTarget.files != null) {
-      setFiles(e.currentTarget.files[0]);
+      if (e.currentTarget.files[0].size <= 1048576 * 12) {
+        setFiles(e.currentTarget.files[0]);
+      } else {
+        alert('this file too big !!');
+      }
       console.log('File');
 
       // formData.append('file', e.currentTarget.files[0]);
