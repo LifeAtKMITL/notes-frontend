@@ -45,7 +45,7 @@ const AuthProvider = ({ children }: IAuthProvider): JSX.Element => {
     }
   };
 
-  // if (!isReady || loadingToken) return <Loading />;
+  if (!isReady || loadingToken) return <Loading />;
 
   return <>{children}</>;
 };
