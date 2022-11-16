@@ -168,9 +168,10 @@ const DetailNote = ({ props }: Iprops) => {
   };
   return (
     <Container>
+      <h3>updata 1 </h3>
       <Wrapper className='glass'>
         <Top>
-        <iframe id='iframepdf' src={file} frameBorder='2' scrolling='yes' height='100%' width='100%' allowFullScreen allowTransparency></iframe>
+        <iframe id='iframepdf' src={`${file}#view=fitH`} frameBorder='2' scrolling='yes' height='100%' width='100%'></iframe>
         </Top>
         <Mid>
           <h1>{subjectName}</h1>
