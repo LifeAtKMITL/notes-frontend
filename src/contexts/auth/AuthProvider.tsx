@@ -1,4 +1,4 @@
-import Loading from 'components/loading';
+import Welcome from 'components/welcome';
 import React, { useEffect, useState } from 'react';
 import { useLiff } from 'react-liff';
 import axios from 'utils/axios';
@@ -41,16 +41,11 @@ const AuthProvider = ({ children }: IAuthProvider): JSX.Element => {
       });
       return response.data;
     } catch (error) {
-      alert('login error');
       return null;
     }
   };
 
-  useEffect(() => {
-    alert('liff error');
-  }, [error]);
-
-  if (!isReady || loadingToken) return <Loading />;
+  if (!isReady || loadingToken) return <Welcome />;
 
   return <>{children}</>;
 };
