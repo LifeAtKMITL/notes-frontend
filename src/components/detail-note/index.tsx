@@ -114,6 +114,7 @@ const DetailNote = ({ props }: Iprops) => {
   const [likedId, setLikedId] = useState<string[]>([]);
   const [likeStr, setLikeStr] = useState('');
   const [like, setLike] = useState(false);
+  const [pleum,setPleum] = useState('no pass')
 
   const dowloadPdf = () => {
     liff.openWindow({
@@ -126,8 +127,9 @@ const DetailNote = ({ props }: Iprops) => {
       const path = '/sharenote/profile';
 
       const res =  await axiosInstance.get(path, {});
-      const data = res?.data;
+      const data = res.data;
       setLikedId(data.likedNotes);
+      setPleum('try loaddata')
       if (data.likedNotes.includes(noteId)) {
         setLike(true);
         setLikeStr('UNLIKE');
@@ -136,6 +138,7 @@ const DetailNote = ({ props }: Iprops) => {
         setLikeStr('LIKE');
       }
     } catch (error) {
+      setPleum('catch loaddata')
       console.log(error);
     }
   };
@@ -172,7 +175,7 @@ const DetailNote = ({ props }: Iprops) => {
   return (
     <Container>
       <h3>
-        Open a PDF file <button onClick={dowloadPdf}>click here</button>
+        Open a PDF file <button onClick={dowloadPdf}>click here {pleum}</button>
       </h3>
 
       <Wrapper className='glass'>
