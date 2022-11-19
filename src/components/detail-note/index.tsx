@@ -125,27 +125,22 @@ const DetailNote = ({ props }: Iprops) => {
     try {
       const path = '/sharenote/profile';
 
-      return await axiosInstance.get(path, {});
+      const res =  await axiosInstance.get(path, {});
+      const data = res?.data;
+      setLikedId(data.likedNotes);
+      if (data.likedNotes.includes(noteId)) {
+        setLike(true);
+        setLikeStr('UNLIKE');
+      } else {
+        setLike(false);
+        setLikeStr('LIKE');
+      }
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
     loadMyData()
-      .then((res) => {
-        const data = res?.data;
-        setLikedId(data.likedNotes);
-        if (data.likedNotes.includes(noteId)) {
-          setLike(true);
-          setLikeStr('UNLIKE');
-        } else {
-          setLike(false);
-          setLikeStr('LIKE');
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   }, []);
   const likeClikeHandler = () => {
     if (like === false) {
