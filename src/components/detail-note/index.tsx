@@ -129,8 +129,9 @@ const DetailNote = ({ props }: Iprops) => {
       const res =  await axiosInstance.get(path, {});
       const data = res.data;
       setLikedId(data.likedNotes);
-      setPleum('try loaddata')
+      setPleum('pass axiosInstance')
       if (data.likedNotes.includes(noteId)) {
+        setPleum('pass check if')
         setLike(true);
         setLikeStr('UNLIKE');
       } else {
@@ -138,7 +139,6 @@ const DetailNote = ({ props }: Iprops) => {
         setLikeStr('LIKE');
       }
     } catch (error) {
-      setPleum('catch loaddata')
       console.log(error);
     }
   };
