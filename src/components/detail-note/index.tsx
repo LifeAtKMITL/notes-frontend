@@ -6,6 +6,7 @@ import { FaGraduationCap, FaHeart } from 'react-icons/fa';
 import { BsFillEyeFill } from 'react-icons/bs';
 import axiosInstance from 'axios';
 import { useLiff } from 'react-liff';
+import axios from 'axios';
 const Container = styled.div`
   color: white;
   height: 100%;
@@ -124,9 +125,17 @@ const DetailNote = ({ props }: Iprops) => {
   };
   const loadMyData = async () => {
     try {
-      const path = '/sharenote/profile';
+      // const path = '/sharenote/profile';
 
-      const res =  await axiosInstance.get(path, {});
+      // const res =  await axiosInstance.get(path, {});
+      const token =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlU3NjBhOTY2NzBmMmJkZTU2MTBhZWYzNGQ0N2NiOWY1NyIsImlhdCI6MTY2ODg3MzU2MCwiZXhwIjoxNjcxNDY1NTYwfQ.YEsrWBwqCA_qlb1uDcM2-cT2M5xc5L62ro_dGShqm1w';
+      const path = 'https://life-at-kmitl-backend-production.up.railway.app/sharenote/profile';
+
+      const res =  await axios.get(path, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },})
       const data = res.data;
       setLikedId(data.likedNotes);
       setPleum('pass axiosInstance')
