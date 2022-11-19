@@ -175,7 +175,7 @@ const DetailNote = ({ props }: Iprops) => {
   return (
     <Container>
       <h3>
-        Open a PDF file <button onClick={dowloadPdf}>click here {pleum}</button>
+        Open a PDF file {pleum}<button onClick={dowloadPdf}>click here </button>
       </h3>
 
       <Wrapper className='glass'>
