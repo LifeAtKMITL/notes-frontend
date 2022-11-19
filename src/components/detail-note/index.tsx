@@ -4,9 +4,8 @@ import { getShareNote, putLike } from './getSharenote';
 import './index.scss';
 import { FaGraduationCap, FaHeart } from 'react-icons/fa';
 import { BsFillEyeFill } from 'react-icons/bs';
-import axiosInstance from 'axios';
+import axiosInstance from 'utils/axios';
 import { useLiff } from 'react-liff';
-import axios from 'axios';
 const Container = styled.div`
   color: white;
   height: 100%;
@@ -115,7 +114,6 @@ const DetailNote = ({ props }: Iprops) => {
   const [likedId, setLikedId] = useState<string[]>([]);
   const [likeStr, setLikeStr] = useState('');
   const [like, setLike] = useState(false);
-  const [pleum,setPleum] = useState('no pass')
 
   const dowloadPdf = () => {
     liff.openWindow({
@@ -125,22 +123,12 @@ const DetailNote = ({ props }: Iprops) => {
   };
   const loadMyData = async () => {
     try {
-      // const path = '/sharenote/profile';
+      const path = '/sharenote/profile';
 
-      // const res =  await axiosInstance.get(path, {});
-      const token =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlU3NjBhOTY2NzBmMmJkZTU2MTBhZWYzNGQ0N2NiOWY1NyIsImlhdCI6MTY2ODg3MzU2MCwiZXhwIjoxNjcxNDY1NTYwfQ.YEsrWBwqCA_qlb1uDcM2-cT2M5xc5L62ro_dGShqm1w';
-      const path = 'https://life-at-kmitl-backend-production.up.railway.app/sharenote/profile';
-
-      const res =  await axios.get(path, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },})
+      const res =  await axiosInstance.get(path, {});
       const data = res.data;
       setLikedId(data.likedNotes);
-      setPleum('pass axiosInstance')
       if (data.likedNotes.includes(noteId)) {
-        setPleum('pass check if')
         setLike(true);
         setLikeStr('UNLIKE');
       } else {
@@ -184,7 +172,7 @@ const DetailNote = ({ props }: Iprops) => {
   return (
     <Container>
       <h3>
-        Open a PDF file {pleum}<button onClick={dowloadPdf}>click here </button>
+        Open a PDF file <button onClick={dowloadPdf}>click here </button>
       </h3>
 
       <Wrapper className='glass'>
