@@ -39,19 +39,9 @@ const NoteCard: React.FC<IProp> = ({ Note }) => {
   };
   const putView = async () => {
     console.log(Note._id);
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlUwZjk1NTdiMDlmMTI0N2U0ZGUyYmYzYjFjYjcyNjc5ZSIsImlhdCI6MTY2ODAwMTgyOSwiZXhwIjoxNjcwNTkzODI5fQ.hj-m3KVnEx6hwPjJGOqkAnBZIFocOB8B8Ey_j5uuoTA';
     let path = `/sharenote/view/${Note._id}`;
     console.log(path);
-    const res = await axiosInstance.put(
-      path,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    );
+    const res = await axiosInstance.put(path, {}, {});
   };
 
   const deleteNote = () => {

@@ -102,6 +102,7 @@ const ShareNotesPage = () => {
       console.log(error);
     }
     setLoading(false);
+    alert('Post done');
   };
 
   const loadSubjects = async () => {
